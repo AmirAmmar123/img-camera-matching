@@ -34,7 +34,7 @@ class ImgReader:
         self.collection = self.getImages(self.path)
 
     @staticmethod
-    def getImages(path):
+    def getImages(path: str):
         """
         Static method to retrieve a list of image filenames from the given directory path.
 
@@ -74,10 +74,12 @@ class ImgReader:
         return len(self.collection)
 
     def plot_image(self, img: numpy.array):
-        plt.figure(figsize=(4, 4), dpi=100)  # Set figure size and dpi for smaller image
+        plt.figure(figsize=(4, 4), dpi=100) 
         plt.imshow(img, cmap=plt.cm.gray)
-        plt.axis('off')  # Turn off axis
+        plt.axis('off') 
         plt.show()
 
+    def getSetImagePath(self) -> str:
+        return self.path
 if __name__ == "__main__":
     pass
