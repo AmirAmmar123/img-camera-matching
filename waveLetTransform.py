@@ -70,7 +70,7 @@ class WVT:
 if __name__ == "__main__":
     # Example usage
     db = db.DataBase('./Data-Base')
-    img_reader = ir.ImgReader(db.db_index_path(2))
+    img_reader = ir.ImgReader(db.imgDirIndexPath(2))
     # Perform wavelet transformation
     wvt = WVT(img_reader.get_image_data(300))
     # Plot the four parts of the transformation

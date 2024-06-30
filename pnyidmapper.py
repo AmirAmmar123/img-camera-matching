@@ -10,10 +10,10 @@ class Mapper:
 
     def __init__(self,dataBasePath: str, directoryIndex: int):
         self.DataBase =  db.DataBase(dataBasePath)
-        self.imgReader = ir.ImgReader(self.DataBase.db_index_path(directoryIndex)) # The data-specific-data-set-path-inside image reader
+        self.imgReader = ir.ImgReader(self.DataBase.imgDirIndexPath(directoryIndex)) # The data-specific-data-set-path-inside image reader
         self.all_transformation = []
         self.all_HH_normalized = []
-        self.id = None 
+        self.pnu_id = None 
         self.std = None 
         self.mean = None 
         self.min = None 
@@ -26,7 +26,7 @@ class Mapper:
         
     
 
-    def create_ID(self) -> Any:
+    def create_ID(self):
         """
         Creates an ID image based on the transformed images and calculates statistics.
 
@@ -36,11 +36,11 @@ class Mapper:
         Returns:
             The instance with the ID image and calculated statistics.
         """
-        self.id = (
+        self.pnu_id = (
             sum(wvt.get_HH() for wvt in self.transform_all_imges())
             / self.imgReader.get_collection_size()
         )
-        self.max, self.min, self.mean, self.std = np.max(self.id), np.min(self.id), np.mean(self.id), np.var(self.id)**0.5
+        self.max, self.min, self.mean, self.std = np.max(self.pnu_id), np.min(self.pnu_id), np.mean(self.pnu_id), np.var(self.pnu_id)**0.5
         return self
 
     def saveID(self)-> None:
@@ -52,7 +52,7 @@ class Mapper:
 
         """
         path = self.imgReader.getSetImagePath().replace('training','pnu_id')
-        cv2.imwrite(f'{path}pnu_id.tiff', self.id)
+        cv2.imwrite(f'{path}pnu_id.tiff', self.pnu_id)
 
 
 if __name__ == "__main__":

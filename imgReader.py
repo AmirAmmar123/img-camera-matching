@@ -42,11 +42,10 @@ class ImgReader:
             path (str): The directory path containing the image files.
 
         Returns:
-            list: A list of image filenames with supported extensions.
+            list: A list of image filenames with supported extensions => (.png .jpg .jpeg .heic)
         """
-        # List all files in the directory
         image_filenames = os.listdir(path)
-        # Filter out only the image files (you can customize this based on your file extensions)
+        
         return [filename for filename in image_filenames if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic'))]
 
     def read_image_path(self, index : int):
