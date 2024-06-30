@@ -1,15 +1,16 @@
-import waveLetTransform as wv 
+from typing import Any, Generator
+from waveLetTransform import WVT 
 import dataBase as db 
 import imgReader as ir 
 import numpy as np
-import os 
 import cv2 
+from functools import reduce
 
 class Mapper:
-    IDS_DIRECTORY_PATH = './Data-Base/PNU-IDs/'
-    def __init__(self, index: int):
-        self.DataBase =  db.DataBase('./Data-Base')
-        self.imgReader = ir.ImgReader(self.DataBase.db_index_path(index)) # The data-specific-data-set-path-inside image reader
+
+    def __init__(self,dataBasePath: str, directoryIndex: int):
+        self.DataBase =  db.DataBase(dataBasePath)
+        self.imgReader = ir.ImgReader(self.DataBase.db_index_path(directoryIndex)) # The data-specific-data-set-path-inside image reader
         self.all_transformation = []
         self.all_HH_normalized = []
         self.id = None 
@@ -18,26 +19,44 @@ class Mapper:
         self.min = None 
         self.max = None 
     
-    def transform_all_imges(self):
+    def transform_all_imges(self) -> Generator[Any, Any, Any]:
         """Transform all images within the set of images"""
-        # for i in range(self.imgReader.get_collection_size()):
-        for i in range(1):
-            self.all_transformation.append(wv.WVT( self.imgReader.get_image_data(i)))
-        return self
+        for i in range(self.imgReader.get_collection_size()):
+            yield WVT( self.imgReader.get_image_data(i))
+        
     
 
-    def create_ID(self):
-        self.id = sum([wvt.get_HH() for wvt in self.all_transformation ])/self.imgReader.get_collection_size() 
+    def create_ID(self) -> Any:
+        """
+        Creates an ID image based on the transformed images and calculates statistics.
+
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            The instance with the ID image and calculated statistics.
+        """
+        self.id = (
+            sum(wvt.get_HH() for wvt in self.transform_all_imges())
+            / self.imgReader.get_collection_size()
+        )
         self.max, self.min, self.mean, self.std = np.max(self.id), np.min(self.id), np.mean(self.id), np.var(self.id)**0.5
         return self
 
-    def saveID(self):
-        # still not finished 
-        base_name = os.path.basename(self.imgReader.getSetImagePath())
-        cv2.imwrite(self.IDS_DIRECTORY_PATH+base_name+'.jpg', self.id)
+    def saveID(self)-> None:
+        """
+        Saves the ID image to a specified path.
 
-             
+        Args:
+            self: The instance of the class.
+
+        """
+        path = self.imgReader.getSetImagePath().replace('training','pnu_id')
+        cv2.imwrite(f'{path}pnu_id.tiff', self.id)
+
+
 if __name__ == "__main__":
-    mp = Mapper(2)
-    id =  mp.transform_all_imges().create_ID().saveID()
+    mp = Mapper('./Data-Base',1)
+    mp.transform_all_imges()
+    mp.create_ID().saveID()
                 

@@ -1,3 +1,5 @@
+from ctypes import Array
+from typing import Any
 import numpy as np
 import pywt
 import matplotlib.pyplot as plt
@@ -7,19 +9,39 @@ import imgReader as ir
 
 
 class WVT:
+    """
+    Transforms the image using wavelet transform.
+
+    Args:
+        self: The instance of the class.
+
+    """
+
+
+    WIDTH, HEIGHT = 3024, 4032 
+    SHAPE = (HEIGHT, WIDTH)
+    
     def __init__(self, img : np.array):
         self.img = img
         self.coeffs2 = None 
         self.LL,self.LH, self.HL, self.HH = None,None,None,None 
         self.Transform()
     
-    def Transform(self):
+    def Transform(self)-> None:
+        """
+        Transforms the image using wavelet transform.
+
+        Args:
+            self: The instance of the class.
+            
+        """
+        if self.img.shape != self.SHAPE:
+            self.img = self.img.T
         self.coeffs2 = pywt.dwt2(self.img, 'bior1.3')
         self.LL, (self.LH, self.HL, self.HH) = self.coeffs2
     
     # reminder sized may differ after the transportation due to the nature size of the images in each directory
-    def plot_transformation(self):
-            
+    def plot_transformation(self):    
         fig = plt.figure(figsize=(12, 3))
         titles = ['Approximation', ' Horizontal detail',
             'Vertical detail', 'Diagonal detail']
@@ -33,7 +55,16 @@ class WVT:
         fig.tight_layout()
         plt.show()
 
-    def get_HH(self):
+    def get_HH(self)-> (Any | Array | None):
+        """
+        Returns the HH component of the wavelet transformation.
+
+        Args:
+            self: The instance of the class.
+
+        Returns:
+            The HH component of the wavelet transformation.
+        """
         return self.HH 
         
 if __name__ == "__main__":

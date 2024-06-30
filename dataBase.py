@@ -4,7 +4,9 @@ class DataBase:
     def __init__(self, dataBasePath : str ) -> list[str]:
         
         self.dataBasePath = dataBasePath
-        self.all_dir_imgs_paths = [dataBasePath+'/' + x for x in os.listdir(dataBasePath) ]
+        self.all_dir_imgs_paths = [
+            f'{dataBasePath}/{x}/training/' for x in os.listdir(dataBasePath)
+        ]
      
         
     def db_index_path(self, index: int)-> str: 

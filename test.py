@@ -1,24 +1,20 @@
+import cv2
 import matplotlib.pyplot as plt
-import numpy as np
 
-import pywt
-import pywt.data
+# Correct the file path
+file_path = "/home/ameer/img-camera-matching/Data-Base/iphone14-pro/pnu_id/pnu_id.tiff"
 
-# Load image
-original = pywt.data.camera()
+# Load the TIFF image using OpenCV
+image = cv2.imread(file_path)
 
-# Wavelet transform of image, and plot approximation and details
-titles = ['Approximation', ' Horizontal detail',
-          'Vertical detail', 'Diagonal detail']
-coeffs2 = pywt.dwt2(original, 'bior1.3')
-LL, (LH, HL, HH) = coeffs2
-fig = plt.figure(figsize=(12, 3))
-for i, a in enumerate([LL, LH, HL, HH]):
-    ax = fig.add_subplot(1, 4, i + 1)
-    ax.imshow(a, interpolation="nearest", cmap=plt.cm.gray)
-    ax.set_title(titles[i], fontsize=10)
-    ax.set_xticks([])
-    ax.set_yticks([])
+# Check if the image was loaded successfully
+if image is None:
+    raise FileNotFoundError(f"Failed to load image at {file_path}")
 
-fig.tight_layout()
+# Convert the image from BGR (OpenCV format) to RGB (Matplotlib format)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Plot the image
+plt.imshow(image)
+plt.axis('off')  # Hide axes
 plt.show()
