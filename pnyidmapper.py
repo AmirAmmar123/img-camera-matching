@@ -4,7 +4,7 @@ import dataBase as db
 import imgReader as ir 
 import numpy as np
 import cv2 
-from functools import reduce
+import json
 
 class Mapper:
 
@@ -49,10 +49,18 @@ class Mapper:
 
         Args:
             self: The instance of the class.
-
         """
         path = self.imgReader.getSetImagePath().replace('training','pnu_id')
         cv2.imwrite(f'{path}pnu_id.tiff', self.pnu_id)
+        
+        data = {
+        "max": self.max,
+        "min": self.min,
+        "mean": self.mean,
+        "std": self.std
+                }
+        with open(f'{path}data.json', 'w') as file:
+                json.dump(data, file, indent=4)
 
 
 if __name__ == "__main__":

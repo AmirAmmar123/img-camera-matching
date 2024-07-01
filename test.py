@@ -1,20 +1,16 @@
-import cv2
+import tifffile as tiff
 import matplotlib.pyplot as plt
+import os 
+from correlation import correlation
+from imgReader import ImgReader
+from waveLetTransform import WVT
+from plotHist import ImageHistogram
+file_path = '/home/ameer/img-camera-matching/Data-Base/iphone14-pro/pnu_id/pnu_id.tiff'
+pnu_x = tiff.imread(file_path)
+# h = ImageHistogram(file_path)
+# h.plot_histogram()
+# h.show_image()
 
-# Correct the file path
-file_path = "/home/ameer/img-camera-matching/Data-Base/iphone14-pro/pnu_id/pnu_id.tiff"
-
-# Load the TIFF image using OpenCV
-image = cv2.imread(file_path)
-
-# Check if the image was loaded successfully
-if image is None:
-    raise FileNotFoundError(f"Failed to load image at {file_path}")
-
-# Convert the image from BGR (OpenCV format) to RGB (Matplotlib format)
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-# Plot the image
-plt.imshow(image)
-plt.axis('off')  # Hide axes
-plt.show()
+imr = ImgReader('/home/ameer/img-camera-matching/Data-Base/Iphone-13-Pro-Max-Model-Number-MLLE3HBA-Serial-Number-L36V45JK72/training/')
+print(correlation(pnu_x,WVT(imr.get_image_data(30)).get_HH()))
+ 
