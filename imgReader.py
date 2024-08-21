@@ -5,6 +5,7 @@ import cv2
 from pillow_heif import register_heif_opener
 import os
 import numpy
+import tifffile as tiff
 
 # Register HEIF opener for PIL
 register_heif_opener()
@@ -44,9 +45,14 @@ class ImgReader:
         Returns:
             list: A list of image filenames with supported extensions => (.png .jpg .jpeg .heic)
         """
-        image_filenames = os.listdir(path)
+        try:
+            
+            image_filenames = os.listdir(path)
+        except FileNotFoundError:
+            print(f"Directory {path} not found.")
+            return []  
         
-        return [filename for filename in image_filenames if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic'))]
+        return [filename for filename in image_filenames if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.heic', '.tiff'))]
 
     def read_image_path(self, index : int):
         """
@@ -60,14 +66,16 @@ class ImgReader:
         """
         return f'{self.path}/{self.collection[index]}'
     
-    def get_image_data(self, index : int) -> numpy.array:
+    def get_image_data(self, index : int, format : str = 'gray') -> numpy.array:
         img_path = self.read_image_path(index)
-        img = mpimg.imread(img_path)
-        
-        # Convert to grayscale if necessary
-        if len(img.shape) == 3:
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-        return img
+        if format == 'gray':
+            img = mpimg.imread(img_path)
+            # Convert to grayscale if necessary
+            if len(img.shape) == 3:
+                img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+            return img
+        elif format == 'tiff':
+            return tiff.imread(img_path)
     
     def get_collection_size(self) -> int :
         return len(self.collection)

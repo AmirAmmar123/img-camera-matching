@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import tifffile as tiff
 from skimage import exposure
 
-class ImageHistogram:
+class ImagePNUIDHistogram:
     def __init__(self, image_path: str):
         """
         Initializes the ImageHistogram class with an image path.

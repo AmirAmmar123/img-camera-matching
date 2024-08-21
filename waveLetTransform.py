@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 
 
 
-
-
 class WVT:
     """
     Transforms the image using wavelet transform.

@@ -24,4 +24,4 @@ def correlation(pnu_x: np.array,n: np.array):
     pnu_x_gag = np.average(pnu_x)
     flat_image1 = (n - n_gag).flatten()
     flat_image2 = (pnu_x - pnu_x_gag).flatten()
-    return np.corrcoef(flat_image1, flat_image2)[0,1]
+    return np.corrcoef(flat_image1, flat_image2)[0,1] 
