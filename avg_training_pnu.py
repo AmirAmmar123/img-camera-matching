@@ -47,7 +47,8 @@ class PNUMatcher:
                     for i in range(test_img_reader.get_collection_size()):
                         try:
                             test_img = test_img_reader.get_image_data(i)
-                            self.correlation_avergin_result[test_path][pnu_path] += correlation(pnu_id, WVT(test_img).get_HH())
+                            result = correlation(pnu_id, WVT(test_img).get_HH())
+                            self.correlation_avergin_result[test_path][pnu_path] += result
                         except Exception as e:
                             print(f"Exception occurred while processing image {test_img_reader.read_image_path(i)} in {test_path}: {e}")
 
