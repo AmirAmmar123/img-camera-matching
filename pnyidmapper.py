@@ -7,7 +7,11 @@ import cv2
 import json
 
 class Mapper:
-
+    MAX = 'max'
+    MIN = 'min'
+    MEAN = 'mean'
+    STD = 'std'
+    
     def __init__(self,dataBasePath: str, directoryIndex: int):
         self.DataBase =  db.DataBase(dataBasePath)
         self.imgReader = ir.ImgReader(self.DataBase.imgDirIndexPath(directoryIndex)) # The data-specific-data-set-path-inside image reader
@@ -28,7 +32,7 @@ class Mapper:
 
     def create_ID(self):
         """
-        Creates an ID image based on the transformed images and calculates statistics.
+        Creates an PNU ID image based on the transformed images and calculates statistics.
 
         Args:
             self: The instance of the class.
@@ -54,17 +58,18 @@ class Mapper:
         cv2.imwrite(f'{path}pnu_id.tiff', self.pnu_id)
         
         data = {
-        "max": self.max,
-        "min": self.min,
-        "mean": self.mean,
-        "std": self.std
+        self.MAX: self.max,
+        self.MIN: self.min,
+        self.MEAN: self.mean,
+        self.STD: self.std
                 }
         with open(f'{path}data.json', 'w') as file:
                 json.dump(data, file, indent=4)
 
 
 if __name__ == "__main__":
-    mp = Mapper('./Data-Base',1)
+    DB = './Data-Base'
+    mp = Mapper(DB,1)
     mp.transform_all_imges()
     mp.create_ID().saveID()
                 

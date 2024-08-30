@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 
 
 class WVT:
+    APPROXIMATION = 'Approximation'
+    HORIZONTAL_DETAIL = 'Horizontal detail'
+    VERTICAL_DETAIL = 'Vertical detail'
+    DIAGONAL_DETAIL = 'Diagonal detail'
     """
     Transforms the image using wavelet transform.
 
@@ -14,8 +18,6 @@ class WVT:
         self: The instance of the class.
 
     """
-
-
     WIDTH, HEIGHT = 3024, 4032 
     SHAPE = (HEIGHT, WIDTH)
     
@@ -24,6 +26,8 @@ class WVT:
         self.coeffs2 = None 
         self.LL,self.LH, self.HL, self.HH = None,None,None,None 
         self.Transform()
+
+
     
     def Transform(self)-> None:
         """
@@ -41,8 +45,10 @@ class WVT:
     # reminder sized may differ after the transportation due to the nature size of the images in each directory
     def plot_transformation(self):    
         fig = plt.figure(figsize=(12, 3))
-        titles = ['Approximation', ' Horizontal detail',
-            'Vertical detail', 'Diagonal detail']
+        titles = [
+                  self.APPROXIMATION, self.HORIZONTAL_DETAIL,
+                  self.VERTICAL_DETAIL, self.DIAGONAL_DETAIL
+                 ]
         for i, a in enumerate([self.LL, self.LH, self.HL, self.HH]):
             ax = fig.add_subplot(1, 4, i + 1)
             ax.imshow(a, interpolation="nearest", cmap=plt.cm.gray)
