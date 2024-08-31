@@ -4,7 +4,7 @@ import os
 from correlation import correlation
 from imgReader import ImgReader
 from waveLetTransform import WVT
-from plotHist import ImagePNUIDHistogram
+from plotPnuIdHist import ImagePNUIDHistogram
 
 PNU_ID_PATHS =[ '/home/ameer/img-camera-matching/Data-Base/iphone14-pro/pnu_id/pnu_id.tiff',
                '/home/ameer/img-camera-matching/Data-Base/Iphone-13-Pro-Max-Model-Number-MLLE3HBA-Serial-Number-L36V45JK72/pnu_id/pnu_id.tiff'

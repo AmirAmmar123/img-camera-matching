@@ -66,7 +66,7 @@ class Mapper:
         with open(f'{path}data.json', 'w') as file:
                 json.dump(data, file, indent=4)
 
-
+    
 if __name__ == "__main__":
     DB = './Data-Base'
     mp = Mapper(DB,1)
