@@ -9,7 +9,7 @@ DATA_DUMP = '/home/ameer/img-camera-matching/Data-Base/results/'
 
 
 if __name__ == '__main__':
-    mp = mp(DB,1)
+    mp = mp(DB,5)
     mp.transform_all_imges()
     mp.create_ID().saveID()
     matcher = pnm(BASE_DIRECTORY, DATA_DUMP)

@@ -37,10 +37,11 @@ class WVT:
             self: The instance of the class.
             
         """
-        if self.img.shape != self.SHAPE:
+        if self.img.T.shape == self.SHAPE:
             self.img = self.img.T
         self.coeffs2 = pywt.dwt2(self.img, 'bior1.3')
         self.LL, (self.LH, self.HL, self.HH) = self.coeffs2
+
     
     # reminder sized may differ after the transportation due to the nature size of the images in each directory
     def plot_transformation(self):    
