@@ -17,6 +17,7 @@ class DataBase:
         self.all_dir_imgs_paths = [
             f'{dataBasePath}/{x}/training/' for x in os.listdir(dataBasePath)
         ]
+        print('Reading Data Base successfully done')
      
         
     def imgDirIndexPath(self, index: int)-> str: 

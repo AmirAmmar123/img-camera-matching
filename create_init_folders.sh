@@ -14,7 +14,7 @@ for dir in "$@"; do
     fi
 
 
-    mkdir -p Data-Base/$dir/{pnu_id,testing,training}./
+    mkdir -p Data-Base/$dir/{pnu_id,testing,training}/
     echo "Folders created successfully at Data-Base/$dir"
     tree Data-Base/$dir
 done

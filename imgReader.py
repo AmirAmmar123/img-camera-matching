@@ -6,7 +6,6 @@ from pillow_heif import register_heif_opener
 import os
 import numpy
 import tifffile as tiff
-
 # Register HEIF opener for PIL
 register_heif_opener()
 
@@ -46,7 +45,6 @@ class ImgReader:
             list: A list of image filenames with supported extensions => (.png .jpg .jpeg .heic)
         """
         try:
-            
             image_filenames = os.listdir(path)
         except FileNotFoundError:
             print(f"Directory {path} not found.")
