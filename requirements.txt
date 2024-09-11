@@ -6,3 +6,5 @@ pillow_heif       0.16.0
 scipy             1.14.0
 scikit-image      0.24.0
 tifffile          2024.6.18
+scikit-learn      1.5.1
+pandas            2.2.2

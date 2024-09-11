@@ -50,3 +50,7 @@ class ImagePNUIDHistogram:
         plt.axis('off')  # Hide axes
         plt.show()
 
+
+if __name__ == "__main__":
+    
+    ImagePNUIDHistogram('./Data-Base/iphone-Areeg/pnu_id/pnu_id.tiff').plot_histogram()

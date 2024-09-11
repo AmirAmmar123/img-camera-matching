@@ -69,7 +69,7 @@ class Mapper:
      
         with open(f'{path}data.json', 'w') as file:
                 json.dump(data, file, indent=4)
-        print('PNU Id and Data successfully saved at {path}')
+        print(f'PNU Id and Data successfully saved at {path}')
 
     
 if __name__ == "__main__":
