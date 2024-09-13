@@ -1,17 +1,25 @@
 from waveLetTransform import WVT
 from dataBase import DataBase as db 
 from imgReader import ImgReader as ir 
-
-NUMS_OF_DATAT_SET = 6 
-NUM_OF_GUSSIANS = NUMS_OF_DATAT_SET 
-DATABASE_PATH = "Data-Base"
-HOME_DIR_PATH = "/home/ameer/img-camera-matching/"
-
+from const import *
 class AllData:
     TRAINING = "training"
     TESTING = "testing"
-    
+
     def __init__(self, dataBasePath):
+        """
+        Initialize an instance of AllData class.
+
+        Parameters:
+        dataBasePath (str): The path to the database directory.
+
+        Attributes:
+        dataBaseTesting (db): An instance of the DataBase class for testing data.
+        dataBaseTraining (db): An instance of the DataBase class for training data.
+        all_data (list): A list to store paths to all images. Initialized as None.
+        imagReaderMapped (dict): A dictionary to store image readers mapped by their paths.
+
+        """
         self.dataBaseTesting =  db(dataBasePath, self.TRAINING)
         self.dataBaseTraining=  db(dataBasePath, self.TESTING)
         self.all_data = None
@@ -21,8 +29,9 @@ class AllData:
             HOME_DIR_PATH+self.dataBaseTraining.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)
         ] + [
             HOME_DIR_PATH+self.dataBaseTesting.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)
+
         ]
-        
+
 
     def map_to_imges(self):
         for path_to_im in self.all_data:

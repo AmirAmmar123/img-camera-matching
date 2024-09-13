@@ -1,8 +1,7 @@
 from joinData import AllData 
 from imgReader import ImgReader as ir 
-import json
-import os 
-
+from correlation import correlation
+from waveLetTransform import WVT 
 NUMS_OF_DATAT_SET = 6 
 NUM_OF_GUSSIANS = NUMS_OF_DATAT_SET 
 DATABASE_PATH = "data-base"
@@ -34,7 +33,23 @@ class TwoGussian:
                 self.basePathsecondHighest + OPTIONS[x]
                 )
             
-       
-
+    
+    def create_two_gussians(self):
+        pnu_id = self.pnu_img_reader.get_image_data(0, 'tiff')
+        self.highest_correlation_results = []
+        self.second_highest_correlation_results = []
+        
+        for highest_testing_training in self.img_reader_testing_training_Highest:
+            for imge_index in range(highest_testing_training.get_collection_size()):
+                img = highest_testing_training.get_image_data(imge_index)
+                self.highest_correlation_results.append(correlation(pnu_id,WVT(img).get_HH()))
+                
+        for second_highest_testing_training in self.img_reader_testing_training_Second_Highest:
+            for imge_index in range(second_highest_testing_training.get_collection_size()):
+                img = second_highest_testing_training.get_image_data(imge_index)
+                self.second_highest_correlation_results.append(correlation(pnu_id,WVT(img).get_HH()))
+    def print_results(self):
+        print(self.highest_correlation_results)
+        print(self.second_highest_correlation_results)
 if __name__ == "__main__":
     pass 
