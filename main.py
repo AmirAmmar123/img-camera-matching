@@ -93,11 +93,11 @@ class CameraImageMatcher:
             path_to_second_eighest = os.path.dirname(path1)
             gussians.append(TwoGaussian(path_to_pnu, path_to_the_Highest, path_to_second_eighest))
 
-        print('Data Initialized')
+        print(f'Ready to create {len(gussians)} pairs of TwoGussians...')
         for i, g in enumerate(gussians, start=1):
             g.init_data(all_data)
             g.create_two_gussians()
-            print(f'{i}: TWO-Gaussian Created..')
+            print(f'Pair #{i} Created...')
             g.stage_for_json()
 
             # Save each TwoGaussian result to JSON
