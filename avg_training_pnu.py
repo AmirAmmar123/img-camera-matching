@@ -63,7 +63,7 @@ class PNUMatcher:
         with open(f'{self.data_dump}data.json', 'w') as file:
             json.dump(self.correlation_avergin_result, file, indent=4)
 
-# Usage
+
 if __name__ == "__main__":
     BASE_DIRECTORY = '/home/ameer/img-camera-matching/Data-Base'
     DATA_DUMP = '/home/ameer/img-camera-matching/Data-Base/results/'

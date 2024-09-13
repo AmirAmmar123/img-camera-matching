@@ -3,7 +3,7 @@ from imgReader import ImgReader as ir
 from correlation import correlation
 from waveLetTransform import WVT 
 from const import * 
-import json
+
 class TwoGussian:
     
     def __init__(self, pnu_id_path_highest: str, basePathHighest:str, basePathsecondHighest:str):
@@ -20,10 +20,14 @@ class TwoGussian:
         self.img_reader_testing_training_Second_Highest = []
         for x in range(2):
             self.img_reader_testing_training_Highest.append(
-                allData.get_img_reader_by_key(self.basePathHighest + OPTIONS[x])
+                allData.get_img_reader_by_key(
+                    self.basePathHighest + OPTIONS[x]
+                    )
             )
             self.img_reader_testing_training_Second_Highest.append(
-                self.basePathsecondHighest + OPTIONS[x]
+                allData.get_img_reader_by_key(
+                    self.basePathsecondHighest + OPTIONS[x]
+                    )
                 )
             
     

@@ -48,5 +48,5 @@ if __name__ == '__main__':
         g.stage_for_json()
     
     results = [two_g.get_results() for two_g in gussians]
-    dump_to_json(results, PATH_TO_GUSSIAN_RESULTS)
+    dump_to_json(results, PATH_TO_GUSSIAN_JSON_FILE)
     
