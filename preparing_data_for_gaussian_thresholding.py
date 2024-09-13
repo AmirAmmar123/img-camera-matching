@@ -1,5 +1,4 @@
 import json
-import os
 
 class DataProcessor:
     """
@@ -45,7 +44,7 @@ class DataProcessor:
         for test_set, comparisons in data.items():
             comparisons_relevant = {k: v for k, v in comparisons.items()}
             comparisons_relevant_sorted = list(sorted(comparisons_relevant.items(), key=lambda item: item[1]))
-            res[test_set] = comparisons_relevant_sorted
+            res[test_set.lower()] = comparisons_relevant_sorted
         
         filtered = {}
         for k, v in res.items():
@@ -74,7 +73,7 @@ class DataProcessor:
 
 # Usage
 if __name__ == "__main__":
-    read_path = "Data-Base/results/data.json"
-    write_path = "Data-Base/results/preparing_to_thresholding.json"
+    read_path = "data-base/results/data.json"
+    write_path = "data-base/results/preparing_to_thresholding.json"
     processor = DataProcessor(read_path, write_path)
     processor.run()

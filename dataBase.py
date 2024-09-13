@@ -1,6 +1,7 @@
 
 import os
 class DataBase:
+    
     """
     Initializes the database with the specified database path.
 
@@ -10,14 +11,13 @@ class DataBase:
     Returns:
         A list of all directory paths containing training images within the database.
     """
-
-    def __init__(self, dataBasePath : str ) -> list[str]:
+    def __init__(self, dataBasePath : str, readfrom: str = 'training') -> list[str]:
         
         self.dataBasePath = dataBasePath
         self.all_dir_imgs_paths = [
-            f'{dataBasePath}/{x}/training/' for x in os.listdir(dataBasePath)
+            f'{dataBasePath}/{x}/{readfrom}/' for x in os.listdir(dataBasePath) if os.path.isdir(os.path.join(dataBasePath, x, readfrom))
         ]
-        print('Reading Data Base successfully done')
+        self.all_dir_imgs_paths = [x.lower() for x in self.all_dir_imgs_paths ]
      
         
     def imgDirIndexPath(self, index: int)-> str: 
@@ -33,6 +33,7 @@ class DataBase:
 
         return self.all_dir_imgs_paths[index]
 
+    
 if __name__ == '__main__':
    db =  DataBase('./Data-Base')
    print(db)
