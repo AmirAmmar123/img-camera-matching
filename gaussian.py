@@ -6,7 +6,7 @@ from const import *
 from typing import List, Any
 import logging
 import time 
-
+import sys 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
 class TwoGaussian:
@@ -50,8 +50,9 @@ class TwoGaussian:
                 img = highest_testing_training.get_image_data(image_index)
                 self.highest_correlation_results.append(correlation(pnu_id, WVT(img).get_HH()))
                 processed_images += 1
-                if processed_images % 20 == 0:  
-                    logging.info(f'Processed {processed_images}/{highest_total_images} images.')
+                # Print in the same line without creating a new line
+                sys.stdout.write(f'\rProcessed {processed_images}/{highest_total_images} images.')
+                sys.stdout.flush()
 
         logging.info(f'Total correlation results for the first Gaussian: {len(self.highest_correlation_results)}')
 
@@ -60,23 +61,27 @@ class TwoGaussian:
 
         second_total_images = sum(t.get_collection_size() for t in self.img_reader_testing_training_Second_Highest)
         processed_images = 0
-         logging.info(f'{second_total_images} images ready to be processed')
+        logging.info(f'{second_total_images} images ready to be processed')
         for second_highest_testing_training in self.img_reader_testing_training_Second_Highest:
             for image_index in range(second_highest_testing_training.get_collection_size()):
                 img = second_highest_testing_training.get_image_data(image_index)
                 self.second_highest_correlation_results.append(correlation(pnu_id, WVT(img).get_HH()))
 
                 processed_images += 1
-                if processed_images % 20 == 0:
-                    logging.info(f'Processed {processed_images}/{second_total_images} images.')
+                # Print in the same line without creating a new line
+                sys.stdout.write(f'\rProcessed {processed_images}/{second_total_images} images.')
+                sys.stdout.flush()
+          
+
 
         logging.info(f'Total correlation results for the second Gaussian: {len(self.second_highest_correlation_results)}')
 
         total_processed = len(self.highest_correlation_results) + len(self.second_highest_correlation_results)
         elapsed_time = time.time() - start_time
-
+        total_images = highest_total_images + second_total_images
         logging.info('Finished processing.')
-        logging.info(f'Total images processed: {total_processed}')
+        logging.info(f'Total correlation results: {total_images}')
+        logging.info(f'Total correlation results: {total_processed}')
         logging.info(f'Time elapsed: {elapsed_time:.2f} seconds')
 
     
