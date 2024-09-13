@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 # Step 1: Load the JSON data from the file
-with open('Data-Base/results/data.json') as f:
+with open('data-base/results/data.json') as f:
     data = json.load(f)
 
 # Step 2: Convert the JSON structure into a Pandas DataFrame
