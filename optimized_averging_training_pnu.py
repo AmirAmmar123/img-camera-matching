@@ -6,11 +6,13 @@ from correlation import correlation
 
 class PNUMatcher:
     def __init__(self, base_directory: str, data_dump: str):
+        print("Initializing PNU Matcher...")
         self.base_directory = base_directory
         self.data_dump = data_dump
         self.pnu_img_reader_list = self._get_img_readers('pnu_id')
         self.test_img_reader_list = self._get_img_readers('testing')
         self.correlation_avergin_result = self._load_existing_results()
+        print("PNU Matcher Successfully Loaded")
 
     def _find_directories(self, directory_name: str) -> list[str]:
         """
@@ -76,6 +78,7 @@ class PNUMatcher:
         """
         with open(f'{self.data_dump}data.json', 'w') as file:
             json.dump(self.correlation_avergin_result, file, indent=4)
+            print(f'Data successfully saved at {self.data_dump}data.json')
 
 # Usage
 if __name__ == "__main__":

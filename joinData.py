@@ -20,10 +20,12 @@ class AllData:
         imagReaderMapped (dict): A dictionary to store image readers mapped by their paths.
 
         """
+        print('Initializing Data in ALLDATA...')
         self.dataBaseTesting =  db(dataBasePath, self.TRAINING)
         self.dataBaseTraining=  db(dataBasePath, self.TESTING)
         self.all_data = None
         self.imagReaderMapped = {}
+        print('Data successfully initialized')
     def join(self,):
         self.all_data = [
             HOME_DIR_PATH+self.dataBaseTraining.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)

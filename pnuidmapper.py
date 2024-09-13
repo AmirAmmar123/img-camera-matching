@@ -29,7 +29,7 @@ class Mapper:
         for i in range(self.imgReader.get_collection_size()):
             yield WVT( self.imgReader.get_image_data(i))
         
-    
+
 
     def create_ID(self):
         """
