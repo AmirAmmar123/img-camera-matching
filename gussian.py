@@ -2,15 +2,8 @@ from joinData import AllData
 from imgReader import ImgReader as ir 
 from correlation import correlation
 from waveLetTransform import WVT 
-NUMS_OF_DATAT_SET = 6 
-NUM_OF_GUSSIANS = NUMS_OF_DATAT_SET 
-DATABASE_PATH = "data-base"
-TRAINING = "/training/"
-TESTING = "/testing/"
-OPTIONS = [TRAINING, TESTING]
-PNU = "/pnu_id/"
-PNU_IMG_NAME = "pnu_id.tiff"
-
+from const import * 
+import json
 class TwoGussian:
     
     def __init__(self, pnu_id_path_highest: str, basePathHighest:str, basePathsecondHighest:str):
@@ -48,8 +41,17 @@ class TwoGussian:
             for imge_index in range(second_highest_testing_training.get_collection_size()):
                 img = second_highest_testing_training.get_image_data(imge_index)
                 self.second_highest_correlation_results.append(correlation(pnu_id,WVT(img).get_HH()))
-    def print_results(self):
-        print(self.highest_correlation_results)
-        print(self.second_highest_correlation_results)
+    def stage_for_json(self):
+        self.results = [
+            self.pnu_id_path,
+            self.basePathHighest,
+            self.basePathsecondHighest,
+            self.highest_correlation_results,
+            self.second_highest_correlation_results
+        ]
+    
+    def get_results(self):
+        return self.results
+
 if __name__ == "__main__":
     pass 

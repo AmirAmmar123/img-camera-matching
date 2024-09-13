@@ -9,6 +9,11 @@ from gussian import TwoGussian
 import os 
 from const import * 
 
+
+def dump_to_json(data,file_path):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
 if __name__ == '__main__':
     # for id in CAMERA_SET_ID :
     #     mp = mp(DATABASE_PATH,id)
@@ -40,4 +45,8 @@ if __name__ == '__main__':
     
     for g in gussians:
         g.create_two_gussians()
-        g.print_results()
+        g.stage_for_json()
+    
+    results = [two_g.get_results() for two_g in gussians]
+    dump_to_json(results, PATH_TO_GUSSIAN_RESULTS)
+    
