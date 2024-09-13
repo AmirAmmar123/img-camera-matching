@@ -97,7 +97,7 @@ class CameraImageMatcher:
         for i, g in enumerate(gussians, start=1):
             g.init_data(all_data)
             g.create_two_gussians()
-            print(f'{i}: TWO-Gaussian Created')
+            print(f'{i}: TWO-Gaussian Created..')
             g.stage_for_json()
 
             # Save each TwoGaussian result to JSON
