@@ -32,34 +32,37 @@ class CameraImageMatcher:
         parser.add_argument("--home_directory_path", type=str, default="/home/ameer/img-camera-matching/", help="Home directory path")
         parser.add_argument("--base_directory", type=str, default="img-camera-matching/Data-Base", help="Base directory from the project directory to the data-base directory")
         parser.add_argument("--read_correlation_result", type=str, default="data-base/results/data.json", help="The correlation result between the data-base and the PNU ID will be saved here")
-        parser.add_argument("--save_to_gaussian_stage", type=str, default="data-base/results/preparing_to_thresholding.json", help="Closest points between the data-base and PNU ID will be saved here")
+        parser.add_argument("--save_to_gaussian_stage", type=str, default="data-base/results/prep_to_threshold.json", help="Closest points between the data-base and PNU ID will be saved here")
         parser.add_argument("--save_to_gaussian", type=str, default='/home/ameer/img-camera-matching/data-base/results/gussians.json', help="Save the Gaussian results to this directory")
         parser.add_argument("--create_x_pnu_id", type=int, default=0, help="Number of PNU IDs to create")
         parser.add_argument("--activate_creation", type=bool, default=False, help="Activate the generation of PNU ID for each image data set")
         parser.add_argument("--activate_matcher", type=bool, default=False, help="Activate the correlation generation between image-set and PNU ID")
         return parser.parse_args()
 
-    def ensure_directory_exists(self, file_path):
-        directory = os.path.dirname(file_path)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+    
 
-    def dump_to_json(self, data, file_path, append=False):
-        self.ensure_directory_exists(file_path)
-        if append and os.path.exists(file_path):
-            # Open the file and ensure it has valid JSON or initialize with empty list if needed
-            with open(file_path, 'r+') as file:
-                if content := file.read():
-                    file.seek(0)
-                    existing_data = json.load(file)
-                else:
-                    file.write('[]')
-                    existing_data = []
-                file.seek(0)
-                json.dump(existing_data + data, file, indent=4)
-        else:
-            with open(file_path, 'w') as file:
-                json.dump(data, file, indent=4)
+    def dump_to_json(self, data, file_path):
+
+        with open(file_path, 'a+') as f:
+
+            f.seek(0)
+
+            try:
+
+                existing_data = json.load(f)
+            except json.JSONDecodeError:
+ 
+                existing_data = []
+
+            existing_data.append(data)
+
+
+            f.seek(0)
+            f.truncate()
+
+            json.dump(existing_data, f,indent=4)
+
+            print(f'Data successfully written to {file_path}')
 
 
 
@@ -98,10 +101,7 @@ class CameraImageMatcher:
             g.init_data(all_data)
             g.create_two_gussians()
             print(f'Pair #{i} Created...')
-            g.stage_for_json()
-
-            # Save each TwoGaussian result to JSON
-            self.dump_to_json([g.get_results()], self.save_to_gaussian, append=True)
+            self.dump_to_json(g.get_results(), self.save_to_gaussian)
             print(f'{i}: Data staged and saved to JSON')
 
 if __name__ == '__main__':

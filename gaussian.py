@@ -84,15 +84,6 @@ class TwoGaussian:
         logging.info(f'Time elapsed: {elapsed_time:.2f} seconds')
 
     
-    def stage_for_json(self):
-        self.results = [
-            self.pnu_id_path,
-            self.basePathHighest,
-            self.basePathsecondHighest,
-            self.highest_correlation_results,
-            self.second_highest_correlation_results
-        ]
-    
     def get_results(self):
         return {
             'pnu_id_path': self.pnu_id_path,
