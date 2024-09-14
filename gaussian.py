@@ -8,7 +8,7 @@ import time
 import sys 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
-class PairsGaussian:
+class GaussianPairs:
     
     def __init__(self, pnu_id_path_highest: str, basePathHighest:str, basePathsecondHighest:str):
         self.mean = [] 

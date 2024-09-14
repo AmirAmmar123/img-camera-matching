@@ -1,5 +1,5 @@
 from joinData import AllData
-from gaussian import PairsGaussian
+from gaussian import GaussianPairs
 import os 
 from const import PNU 
 import argparse
@@ -30,7 +30,8 @@ class CameraImageMatcher:
         parser.add_argument("--base_directory", type=str, default="img-camera-matching/Data-Base", help="Base directory from the project directory to the data-base directory")
         parser.add_argument("--read_correlation_result", type=str, default="data-base/results/data.json", help="The correlation result between the data-base and the PNU ID will be saved here")
         parser.add_argument("--save_to_gaussian_stage", type=str, default="data-base/results/prep_to_threshold.json", help="Closest points between the data-base and PNU ID will be saved here")
-        parser.add_argument("--save_to_gaussian", type=str, default='/home/ameer/img-camera-matching/data-base/results/gussians.json', help="Save the Gaussian results to this directory")
+        parser.add_argument("--save_to_gaussian", type=str, default='/home/ameer/img-camera-matching/data-base/results/gaussian.json', help="Save the Gaussian results to this directory")
+        parser.add_argument("--load_gaussian", type=str, default='/home/ameer/img-camera-matching/data-base/results/gaussian.json',help='Load the pairs of gaussian the have been created')
         parser.add_argument("--create_x_pnu_id", type=int, default=0, help="Number of PNU IDs to create")
         parser.add_argument("--activate_creation", type=bool, default=False, help="Activate the generation of PNU ID for each image data set")
         parser.add_argument("--activate_matcher", type=bool, default=False, help="Activate the correlation generation between image-set and PNU ID")
@@ -90,7 +91,7 @@ class CameraImageMatcher:
             path_to_pnu = os.path.dirname(x) + PNU
             path_to_the_Highest = os.path.dirname(path2)
             path_to_second_eighest = os.path.dirname(path1)
-            gussians.append(PairsGaussian(path_to_pnu, path_to_the_Highest, path_to_second_eighest))
+            gussians.append(GaussianPairs(path_to_pnu, path_to_the_Highest, path_to_second_eighest))
 
         print(f'Ready to create {len(gussians)} pairs of Gaussian...')
         for i, g in enumerate(gussians, start=1):
