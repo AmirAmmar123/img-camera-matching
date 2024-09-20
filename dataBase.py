@@ -1,5 +1,8 @@
 
 import os
+import logging 
+logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 class DataBase:
     
     """
@@ -12,13 +15,13 @@ class DataBase:
         A list of all directory paths containing training images within the database.
     """
     def __init__(self, dataBasePath : str, readfrom: str = 'training') -> list[str]:
-        print(f'Initializing Database for path {dataBasePath}/{readfrom}')
+        logging.info(f'Initializing Database for path {dataBasePath}/{readfrom}')
         self.dataBasePath = dataBasePath
         self.all_dir_imgs_paths = [
             f'{dataBasePath}/{x}/{readfrom}/' for x in os.listdir(dataBasePath) if os.path.isdir(os.path.join(dataBasePath, x, readfrom))
         ]
         self.all_dir_imgs_paths = [x.lower() for x in self.all_dir_imgs_paths ]
-        print('Initializing Succeeded')
+        logging.info('Initializing Succeeded')
         
     def imgDirIndexPath(self, index: int)-> str: 
         """

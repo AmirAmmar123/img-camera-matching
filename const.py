@@ -17,3 +17,5 @@ TRAINING = "/training/"
 TESTING = "/testing/"
 OPTIONS = [TRAINING, TESTING]
 PATH_TO_GUSSIAN_JSON_FILE = f'{DATA_DUMP}gussians.json'
+GAUSSIANPLOTS= './plots/gaussian/'
+GAUSSIANPLOTSTHEORY = f'{GAUSSIANPLOTS}theoretical/'

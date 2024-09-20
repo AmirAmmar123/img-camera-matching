@@ -3,16 +3,18 @@ import json
 from waveLetTransform import WVT
 from imgReader import ImgReader
 from correlation import correlation
-
+import logging 
+logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 class PNUMatcher:
     def __init__(self, base_directory: str, data_dump: str):
-        print("Initializing PNU Matcher...")
+        logging.info("Initializing PNU Matcher...")
         self.base_directory = base_directory
         self.data_dump = data_dump
         self.pnu_img_reader_list = self._get_img_readers('pnu_id')
         self.test_img_reader_list = self._get_img_readers('testing')
         self.correlation_avergin_result = self._load_existing_results()
-        print("PNU Matcher Successfully Loaded")
+        logging.info("PNU Matcher Successfully Loaded")
 
     def _find_directories(self, directory_name: str) -> list[str]:
         """
@@ -55,7 +57,7 @@ class PNUMatcher:
 
                     if pnu_path in self.correlation_avergin_result[test_path]:
                         # Skip calculation if result already exists
-                        print(f"Skipping calculation for {test_path} and {pnu_path}")
+                        logging.info(f"Skipping calculation for {test_path} and {pnu_path}")
                         continue
 
                     self.correlation_avergin_result[test_path][pnu_path] = 0
@@ -66,11 +68,11 @@ class PNUMatcher:
                             result = correlation(pnu_id, WVT(test_img).get_HH())
                             self.correlation_avergin_result[test_path][pnu_path] += result
                         except Exception as e:
-                            print(f"Exception occurred while processing image {test_img_reader.read_image_path(i)} in {test_path}: {e}")
+                            logging.ERROR(f"Exception occurred while processing image {test_img_reader.read_image_path(i)} in {test_path}: {e}")
 
                     self.correlation_avergin_result[test_path][pnu_path] /= test_img_reader.get_collection_size()
         except Exception as e:
-            print(f"Exception occurred: {e}")
+            logging.ERROR(f"Exception occurred: {e}")
 
     def save_results(self):
         """
@@ -78,7 +80,7 @@ class PNUMatcher:
         """
         with open(f'{self.data_dump}data.json', 'w') as file:
             json.dump(self.correlation_avergin_result, file, indent=4)
-            print(f'Data successfully saved at {self.data_dump}data.json')
+            logging.info(f'Data successfully saved at {self.data_dump}data.json')
 
 # Usage
 if __name__ == "__main__":

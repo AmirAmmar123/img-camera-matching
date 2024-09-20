@@ -8,9 +8,22 @@ import time
 import sys 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
+
 class GaussianPairs:
     
     def __init__(self, pnu_id_path_highest: str, basePathHighest:str, basePathsecondHighest:str):
+        """
+        A class to create two Gaussian distributions based on the closest correlation results between 
+        a set of images and PNU IDs. The class processes two sets of images to compute correlations 
+        with a given PNU ID, and stores the results for further analysis.
+
+        Attributes:
+            mean (list): Placeholder for storing the mean of the Gaussians.
+            covariance (list): Placeholder for storing the covariance of the Gaussians.
+            pnu_id_path (str): Path to the highest PNU ID data.
+            basePathHighest (str): Path to the dataset with the highest priority for correlation.
+            basePathsecondHighest (str): Path to the dataset with the second highest priority for correlation.
+        """
         self.mean = [] 
         self.covariance = []
         self.pnu_id_path = pnu_id_path_highest
@@ -18,9 +31,17 @@ class GaussianPairs:
         self.basePathsecondHighest = basePathsecondHighest
     
     def init_data(self, allData: AllData):
+        """
+        Initialize image readers for the datasets and PNU IDs, setting up the data for correlation computation.
+
+        Args:
+            allData (AllData): An instance of AllData containing methods to retrieve image readers 
+                               for both the highest and second-highest datasets.
+        """
         self.pnu_img_reader = ir(self.pnu_id_path)
         self.img_reader_testing_training_Highest = []
         self.img_reader_testing_training_Second_Highest = []
+        logging.info("Initializing the image reader of both chosen gaussian's pairs")
         for x in range(2):
             self.img_reader_testing_training_Highest.append(
                 allData.get_img_reader_by_key(

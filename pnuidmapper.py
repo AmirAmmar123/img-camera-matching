@@ -5,13 +5,17 @@ import imgReader as ir
 import numpy as np
 import cv2 
 import json
+import logging 
+import logging 
+logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 class Mapper:
     MAX = 'max'
     MIN = 'min'
     MEAN = 'mean'
     STD = 'std'
     
-    def __init__(self,dataBasePath: str, directoryIndex: int):
+    def __init__(self,dataBasePath: str, directoryIndex: int,):
         print('Initializing PNU matcher...')
         self.DataBase =  db.DataBase(dataBasePath)
         self.imgReader = ir.ImgReader(self.DataBase.imgDirIndexPath(directoryIndex)) # The data-specific-data-set-path-inside image reader
@@ -25,7 +29,10 @@ class Mapper:
         print('PNU matcher successfully initialized')
     
     def transform_all_imges(self) -> Generator[Any, Any, Any]:
-        """Transform all images within the set of images"""
+        logging.info(f'Casting WaveLetTransform for all images in {self.imgReader.path}...')
+        """
+            Transform all images within the set of images
+        """
         for i in range(self.imgReader.get_collection_size()):
             yield WVT( self.imgReader.get_image_data(i))
         
@@ -41,7 +48,8 @@ class Mapper:
         Returns:
             The instance with the ID image and calculated statistics.
         """
-        print('Creating pnu id...')
+   
+        logging.info(f'Creating PNU ID...')
         self.pnu_id = (
             sum(wvt.get_HH() for wvt in self.transform_all_imges())
             / self.imgReader.get_collection_size()
@@ -69,7 +77,8 @@ class Mapper:
      
         with open(f'{path}data.json', 'w') as file:
                 json.dump(data, file, indent=4)
-        print(f'PNU Id and Data successfully saved at {path}')
+  
+        logging.info(f'PNU Id and Data successfully saved at {path}')
 
     
 if __name__ == "__main__":

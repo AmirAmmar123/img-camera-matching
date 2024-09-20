@@ -6,8 +6,10 @@ import argparse
 import json 
 from pnuidmapper import Mapper as mp 
 from optimized_averging_training_pnu import PNUMatcher as opnm
-from preparing_data_for_gaussian_thresholding import DataProcessor as dp 
-
+from preparing_data_for_gaussian_thresholding import PreProcessorToThreshold as pptt 
+import logging 
+logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 class CameraImageMatcher:
     def __init__(self, args):
         self.db_bath = args.db_bath
@@ -64,8 +66,10 @@ class CameraImageMatcher:
 
 
     def run(self):
+        logging.info("Running Camera Image Matching Function...")
         if self.activate_creation:
             for id in range(self.create_x_pnu_id):
+                logging.info(f'Creating pnu_id using the testing data-set {id+1}...')
                 mp_instance = mp(self.db_bath, id)
                 mp_instance.transform_all_imges()
                 mp_instance.create_ID().saveID()
@@ -75,7 +79,7 @@ class CameraImageMatcher:
             matcher.calculate_correlation()
             matcher.save_results()
 
-        staged = dp(self.read_correlation_result, self.save_to_gaussian_stage)
+        staged = pptt(self.read_correlation_result, self.save_to_gaussian_stage)
         staged.run()
 
         all_data = AllData(self.db_bath)
@@ -83,6 +87,7 @@ class CameraImageMatcher:
         all_data.map_to_imges()
 
         with open(self.save_to_gaussian_stage, 'r') as file:
+            logging.info(f'Loading {self.save_to_gaussian_stage}')
             data = json.load(file)
 
         gussians = []
@@ -93,11 +98,11 @@ class CameraImageMatcher:
             path_to_second_eighest = os.path.dirname(path1)
             gussians.append(GaussianPairs(path_to_pnu, path_to_the_Highest, path_to_second_eighest))
 
-        print(f'Ready to create {len(gussians)} pairs of Gaussian...')
+        logging.info(f'Ready to create {len(gussians)} pairs of Gaussian...')
         for i, g in enumerate(gussians, start=1):
             g.init_data(all_data)
             g.create_two_gussians()
-            print(f'Pair #{i} Created...')
+            logging.info(f'Pair #{i} Created...')
             self.dump_to_json(g.get_results(), self.save_to_gaussian)
-            print(f'{i}: Data staged and saved to JSON')
-        print('The processing of Data has been successfully finished')
+            logging.info(f'{i}: Data staged and saved to JSON')
+        logging.info('The processing of Data has been successfully finished')

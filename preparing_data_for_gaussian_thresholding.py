@@ -1,21 +1,24 @@
 import json
-
-class DataProcessor:
+import logging 
+logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+class PreProcessorToThreshold:
     """
-    A class to process JSON data for thresholding.
+    A class to pre-process JSON data for threshold.
 
     Attributes:
-        read_path (str): Path to the input JSON file.
-        write_path (str): Path to the output JSON file.
+        read_path (str): Path to the input JSON file.  (contains the correlation between each pnu_id and the testing data set)
+        write_path (str): Path to the output JSON file. (where to write the most two highest results for each set of correlation)
     """
 
     def __init__(self, read_path: str, write_path: str):
         """
-        Initializes DataProcessor with input and output file paths.
+        Initializes PreProcessorToThreshold with input and output file paths.
+        One stage before finding the threshold for each camera.
         
         Args:
-            read_path (str): Path to the JSON file to read.
-            write_path (str): Path to the JSON file to write.
+            read_path (str): Path to the JSON file to read. (contains the correlation between each pnu_id and the testing data set)
+            write_path (str): Path to the JSON file to write. (where to write the most two highest results for each set of correlation)
         """
         self.read_path = read_path
         self.write_path = write_path
@@ -27,6 +30,7 @@ class DataProcessor:
         Returns:
             dict: The JSON data.
         """
+        logging.info(f'loading the json data from {self.read_path}')
         with open(self.read_path, 'r') as file:
             return json.load(file)
 
@@ -41,6 +45,7 @@ class DataProcessor:
             dict: The filtered and sorted data.
         """
         res = {}
+        logging.info('Creating a map between the image testing set and the closest two results from the PNU ID')
         for test_set, comparisons in data.items():
             comparisons_relevant = {k: v for k, v in comparisons.items()}
             comparisons_relevant_sorted = list(sorted(comparisons_relevant.items(), key=lambda item: item[1]))
@@ -60,7 +65,8 @@ class DataProcessor:
             data (dict): The data to write.
         """
         with open(self.write_path, 'w') as file:
-            json.dump(data, file, indent=4)  # Pretty print with indent
+            logging.info(f'Saving the result to {self.write_path}')
+            json.dump(data, file, indent=4)  
 
     def run(self) -> None:
         """
@@ -75,5 +81,5 @@ class DataProcessor:
 if __name__ == "__main__":
     read_path = "data-base/results/data.json"
     write_path = "data-base/results/preparing_to_thresholding.json"
-    processor = DataProcessor(read_path, write_path)
+    processor = PreProcessorToThreshold(read_path, write_path)
     processor.run()

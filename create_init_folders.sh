@@ -4,17 +4,32 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+if [ ! -e "plots/" ]; then
+        echo "creating plots/..."
+        mkdir plots/
+        echo "done"
+        echo "creating plots/gaussian..."
+        mkdir plots/gaussian
+        echo "done"
+        echo "creating plots/gaussian..."
+        mkdir "plots/pnu_hist"
+        echo "done"
+fi 
+
 for dir in "$@"; do
-    if [ -e "Data-Base/$dir" ]; then
+    
+
+
+    if [ -e "data-base/$dir" ]; then
         echo "Path exists: Data-Base/$dir"
     else
-        echo "Path does not exist: Data-Base/$dir"
-        echo "Creating new path at Data-Base/$dir"
-        mkdir  Data-Base/$dir
+        echo "Path does not exist: data-base/$dir"
+        echo "Creating new path at data-base/$dir"
+        mkdir  data-base/$dir
     fi
 
 
-    mkdir -p Data-Base/$dir/{pnu_id,testing,training}/
-    echo "Folders created successfully at Data-Base/$dir"
-    tree Data-Base/$dir
+    mkdir -p data-base/$dir/{pnu_id,testing,training}/
+    echo "Folders created successfully at data-base/$dir"
+    tree data-base/$dir
 done
