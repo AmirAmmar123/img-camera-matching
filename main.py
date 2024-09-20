@@ -28,5 +28,5 @@ if __name__ == '__main__':
         g = LoadGaussianPair(**allgaussianPairs.get_gaussian(x))
         path = GAUSSIANPLOTSTHEORY + '_'.join(g.axis_1.split('/')[-1:])+'$'+'_'.join(g.axis_2.split('/')[-1:])
         g.find_gaussian_intersections()
-        g.visualize(path)
+        g.visualize()
     

@@ -1,7 +1,8 @@
 import json
-import matplotlib.pyplot as plt 
-import numpy as np 
-import logging 
+import matplotlib.pyplot as plt
+import numpy as np
+import logging
+
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -67,6 +68,12 @@ class LoadGaussianPair:
         self.plot_gaussian(self.mean1, self.var1, self.axis_1, color=color_1)
         self.plot_gaussian(self.mean2, self.var2, self.axis_2, color=color_2)
 
+        # Add color labels for who the Gaussian belongs to
+        plt.text(self.mean1 + 0.5, self.gaussian_pdf(self.mean1, self.mean1, self.var1), f'Belongs to: {self.axis_1}',
+                 color=color_1, fontsize=10, ha='left')
+        plt.text(self.mean2 - 0.5, self.gaussian_pdf(self.mean2, self.mean2, self.var2), f'Belongs to: {self.axis_2}',
+                 color=color_2, fontsize=10, ha='right')
+        
         # Find intersections and plot the one with the highest y-value
         intersections = self.find_gaussian_intersections()
         if intersections is not None:
@@ -88,9 +95,10 @@ class LoadGaussianPair:
                             ha='center', 
                             color='red',   # Red text color
                             fontsize=12,   # Larger font size
-                            bbox=dict(facecolor='white', alpha=0.3))  # Transparent yellow background
+                            bbox=dict(facecolor='white', alpha=0.3))  # Transparent background
 
-        plt.title(f'Gaussian Distributions for {self.title} with Intersection Point Highlighted')
+        plt.title(f'Gaussian Distributions with Intersection Point Highlighted\n{self.title}')
+        plt.legend()
         
         if save_path:
             self.save_plot(save_path)
@@ -109,5 +117,3 @@ class LoadGaussianPair:
         c = self.mean1**2 /(2*self.var1) - self.mean2**2 / (2*self.var2) - np.log(np.sqrt(self.var2)/np.sqrt(self.var1))
         roots = np.roots([a, b, c])
         return roots[np.isreal(roots)].real if np.isreal(roots).any() else None
-
-# Example usage remains the same
