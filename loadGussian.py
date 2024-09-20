@@ -54,12 +54,18 @@ class LoadGaussianPair:
         x_values = np.linspace(mean - 3 * np.sqrt(variance), mean + 3 * np.sqrt(variance), 1000)
         y_values = self.gaussian_pdf(x_values, mean, variance)
         plt.plot(x_values, y_values, label=f'Gaussian: {"/".join(label.split("/")[-1:])}, μ={mean:.7f}, σ²={variance:.7f}')
-
+        
+    
     def visualize(self, save_path: str = None):
-        logging.info("Visualizing the two gaussian's")
+        logging.info("Visualizing the two Gaussian distributions")
         plt.figure(figsize=(10, 6))
-        self.plot_gaussian(self.mean1, self.var1, self.axis_1)
-        self.plot_gaussian(self.mean2, self.var2, self.axis_2)
+
+        # Use science-friendly colors
+        color_1 = plt.cm.viridis(0.6)  # Viridis color for the first Gaussian
+        color_2 = plt.cm.plasma(0.4)   # Plasma color for the second Gaussian
+
+        self.plot_gaussian(self.mean1, self.var1, self.axis_1, color=color_1)
+        self.plot_gaussian(self.mean2, self.var2, self.axis_2, color=color_2)
 
         # Find intersections and plot the one with the highest y-value
         intersections = self.find_gaussian_intersections()
@@ -75,20 +81,27 @@ class LoadGaussianPair:
 
             if highest_point:
                 plt.plot(highest_point[0], highest_point[1], 'ro')  # Plot highest intersection point
-                plt.annotate(f'({highest_point[0]:.5f}, {highest_point[1]:.5f})', 
-                             (highest_point[0], highest_point[1]), 
-                             textcoords="offset points", 
-                             xytext=(0,10), 
-                             ha='center', 
-                             color='red')
+                plt.annotate(f'Intersection Point\n({highest_point[0]:.5f}, {highest_point[1]:.5f})', 
+                            (highest_point[0], highest_point[1]), 
+                            textcoords="offset points", 
+                            xytext=(0,10), 
+                            ha='center', 
+                            color='red',   # Red text color
+                            fontsize=12,   # Larger font size
+                            bbox=dict(facecolor='white', alpha=0.3))  # Transparent yellow background
 
-        plt.title(f'Gaussian Distributions for {self.title}')
+        plt.title(f'Gaussian Distributions for {self.title} with Intersection Point Highlighted')
         
         if save_path:
             self.save_plot(save_path)
         else:
-            logging.info("Plotting the two gaussian's")
+            logging.info("Plotting the two Gaussian distributions")
             plt.show()
+
+    def plot_gaussian(self, mean, variance, label, color):
+        x_values = np.linspace(mean - 3 * np.sqrt(variance), mean + 3 * np.sqrt(variance), 1000)
+        y_values = self.gaussian_pdf(x_values, mean, variance)
+        plt.plot(x_values, y_values, label=f'Gaussian: {"/".join(label.split("/")[-1:])}, μ={mean:.7f}, σ²={variance:.7f}', color=color)
 
     def find_gaussian_intersections(self):
         a = 1/(2*self.var1) - 1/(2*self.var2)
