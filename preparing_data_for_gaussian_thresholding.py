@@ -47,14 +47,14 @@ class PreProcessorToThreshold:
         res = {}
         logging.info('Creating a map between the image testing set and the closest two results from the PNU ID')
         for test_set, comparisons in data.items():
-            comparisons_relevant = {k: v for k, v in comparisons.items()}
+            comparisons_relevant = dict(comparisons.items())
             comparisons_relevant_sorted = list(sorted(comparisons_relevant.items(), key=lambda item: item[1]))
             res[test_set.lower()] = comparisons_relevant_sorted
-        
+
         filtered = {}
         for k, v in res.items():
             filtered[k] = {s[0]: s[1] for s in v[-2:]}
-        
+
         return filtered
 
     def save_data(self, data: dict) -> None:
