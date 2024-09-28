@@ -65,15 +65,19 @@ class ImgReader:
         return f'{self.path}/{self.collection[index]}'
     
     def get_image_data(self, index : int, format : str = 'gray') -> numpy.array:
-        img_path = self.read_image_path(index)
-        if format == 'gray':
-            img = mpimg.imread(img_path)
-            # Convert to grayscale if necessary
-            if len(img.shape) == 3:
-                img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-            return img
-        elif format == 'tiff':
-            return tiff.imread(img_path)
+        img_path = os.path.join(self.read_image_path(index))
+        try:
+            if format == 'gray':
+                img = mpimg.imread(img_path)
+                # Convert to grayscale if necessary
+                if len(img.shape) == 3:
+                    img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+                return img
+            elif format == 'tiff':
+                return tiff.imread(img_path)
+        except OSError as e:
+            print(f"Error reading image {img_path}: {e}")
+            return None
     
     def get_collection_size(self) -> int :
         return len(self.collection)

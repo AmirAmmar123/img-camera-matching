@@ -1,8 +1,8 @@
-from waveLetTransform import WVT
 from dataBase import DataBase as db 
 from imgReader import ImgReader as ir 
 from const import *
 import logging 
+import os 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
 class AllData:
@@ -48,7 +48,16 @@ class AllData:
         Returns the ImgReader instance for a given image path key.
         """
         return self.imagReaderMapped[key]
+
     
+    def join_training_and_testig_as_one_dir(self):
+        mapper = {}
+        for path in self.all_data:
+            key = '/'.join(path.split('/')[:-2])
+            if key not in mapper:
+                mapper[key] = []
+            mapper[key].append(self.get_img_reader_by_key(path))
+        return mapper
 if __name__ == "__main__":
     all_data = AllData(DATABASE_PATH)
     all_data.join()

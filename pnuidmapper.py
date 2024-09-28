@@ -48,8 +48,8 @@ class Mapper:
         Returns:
             The instance with the ID image and calculated statistics.
         """
-   
-        logging.info(f'Creating PNU ID...')
+       
+        logging.info('Creating PNU ID...')
         self.pnu_id = (
             sum(wvt.get_HH() for wvt in self.transform_all_imges())
             / self.imgReader.get_collection_size()

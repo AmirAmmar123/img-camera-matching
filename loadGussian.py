@@ -52,7 +52,7 @@ class LoadGaussianPair:
         return (1 / (np.sqrt(2 * np.pi * sigma**2))) * np.exp(-((x - mean) ** 2) / (2 * sigma ** 2))
     
     def plot_gaussian(self, mean, variance, label):
-        x_values = np.linspace(mean - 3 * np.sqrt(variance), mean + 3 * np.sqrt(variance), 1000)
+        x_values = np.linspace(-0.05, 0.15, 1000)
         y_values = self.gaussian_pdf(x_values, mean, variance)
         plt.plot(x_values, y_values, label=f'Gaussian: {"/".join(label.split("/")[-1:])}, μ={mean:.7f}, σ²={variance:.7f}')
         
@@ -107,7 +107,8 @@ class LoadGaussianPair:
             plt.show()
 
     def plot_gaussian(self, mean, variance, label, color):
-        x_values = np.linspace(mean - 3 * np.sqrt(variance), mean + 3 * np.sqrt(variance), 1000)
+        # x_values = np.linspace(mean - 3 * np.sqrt(variance), mean + 3 * np.sqrt(variance), 1000)
+        x_values = np.linspace(-0.05, 0.15, 1000)
         y_values = self.gaussian_pdf(x_values, mean, variance)
         plt.plot(x_values, y_values, label=f'Gaussian: {"/".join(label.split("/")[-1:])}, μ={mean:.7f}, σ²={variance:.7f}', color=color)
 

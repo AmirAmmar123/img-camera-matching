@@ -19,3 +19,21 @@ OPTIONS = [TRAINING, TESTING]
 PATH_TO_GUSSIAN_JSON_FILE = f'{DATA_DUMP}gussians.json'
 GAUSSIANPLOTS= './plots/gaussian/'
 GAUSSIANPLOTSTHEORY = f'{GAUSSIANPLOTS}theoretical/'
+PNUIDDIR = ''
+PNUIDs = [
+    '/home/ameer/img-camera-matching/all_results/iphone-13-pro-amir/pnu_id',
+    '/home/ameer/img-camera-matching/all_results/iphone-14-plus-abeer/pnu_id',
+    '/home/ameer/img-camera-matching/all_results/iphone-8-plus-amir/pnu_id',
+    '/home/ameer/img-camera-matching/all_results/iphone-areeg/pnu_id',
+    '/home/ameer/img-camera-matching/all_results/iphone-hanaa/pnu_id',
+    '/home/ameer/img-camera-matching/all_results/iphone14-pro/pnu_id'
+]
+
+FILE_PATH = '/home/ameer/img-camera-matching/data-base/results/gaussian.json'
+PNU_ID_PATH = "pnu_id_path"
+BASE_PATH_HIGHEST = "basePathHighest"
+BASE_PATH_SECOND_HIGHEST = "basePathsecondHighest"
+HIGHEST_CORRELATION_RESULTS = "highest_correlation_results"
+SECOND_HIGHEST_CORRELATION_RESULTS = "second_highest_correlation_results"
+
+
