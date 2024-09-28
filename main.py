@@ -11,6 +11,8 @@ from imgReader import ImgReader as ir
 from const import * 
 import json
 import numpy as np
+import os 
+
 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -30,16 +32,43 @@ def convert_to_serializable(data):
     else:
         return str(data)  # Convert anything else to string
 
+
+
+def save_incremental_data(filename, data):
+    """
+    Save data incrementally to a JSON file.
+    """
+    if os.path.exists(filename):
+        # Open file, read current contents, and append new data to the list
+        with open(filename, 'r+') as f:
+            f.seek(0, os.SEEK_END)
+            # If not empty, move back one step and add a comma to append new data
+            if f.tell() > 0:
+                f.seek(f.tell() - 1, os.SEEK_SET)
+                f.truncate()
+                f.write(",\n")
+            json.dump(data, f, indent=4)
+            f.write("\n]")  # Close the array
+    else:
+        # Create new file and write data in an array
+        with open(filename, 'w') as f:
+            f.write("[\n")
+            json.dump(data, f, indent=4)
+            f.write("\n]")
+
+
+
+
 if __name__ == '__main__':
     logging.info('Entering main function...')
-    
+
     # Example for camera matching logic
     matcher = CameraImageMatcher(CameraImageMatcher.parse_arguments())
     logging.info("CameraImageMatcher initialized successfully.")
 
     # Uncomment to run matcher logic
     # matcher.run()
-    
+
     # logging.info("Loading all gaussian's pairs")
     # allgaussianPairs = LoadAllPairsOfGaussian()
     # for x in range(6):
@@ -60,6 +89,8 @@ if __name__ == '__main__':
     pnu_ids = {k: ir(k) for k in PNUIDs}
 
     logging.info("Processing wavelet transform mapper...")
+    json_filename = 'wave_let_transform_mapper.json'
+     
     for set_k in data_set.keys():
         wave_let_transform_mapper[set_k] = {}
         for id_key in pnu_ids:
@@ -70,19 +101,17 @@ if __name__ == '__main__':
                 for i in range(img_reader.get_collection_size()):
                     img = img_reader.get_image_data(i)
                     logging.info(f"Reading image {img_reader.read_image_path(i)}")
-                    correlation_result = correlation(id, WVT(img).get_HH())
-                    wave_let_transform_mapper[set_k][id_key].append(
-                        convert_to_serializable(correlation_result)
-                    )
-        logging.info(f"Processed set {set_k}.")
+                    if img_reader is not None:
+                        hh = WVT(img).get_HH()
+                        correlation_result = correlation(id, hh)
+                        wave_let_transform_mapper[set_k][id_key].append(
+                            convert_to_serializable(correlation_result)
+                        )
+                    else:
+                        logging.info('Failed to read image')
 
-    # Convert the entire mapper to a serializable form
-    serializable_data = convert_to_serializable(wave_let_transform_mapper)
-    logging.info("Converted wave_let_transform_mapper to a serializable format.")
-
-    # Save to JSON
-    with open('wave_let_transform_mapper.json', 'w') as f:
-        json.dump(serializable_data, f, indent=4)
-        logging.info("Data saved to wave_let_transform_mapper.json")
+        # After processing the current set, save it incrementally
+        save_incremental_data(json_filename, {set_k: wave_let_transform_mapper[set_k]})
+        logging.info(f"Processed and saved set {set_k}.")
 
     logging.info("Processing complete.")
