@@ -36,6 +36,16 @@ PNUIDS = [
     f'{ALL_RESULTS_DIR}iphone-hanaa/{PNU_DIR}',
     f'{ALL_RESULTS_DIR}iphone14-pro/{PNU_DIR}'
 ]
+
+SETS = [
+    f'{DATABASE_PATH}/iphone-13-pro-amir',
+    f'{DATABASE_PATH}/iphone-14-plus-abeer',
+    f'{DATABASE_PATH}/iphone-8-plus-amir',
+    f'{DATABASE_PATH}/iphone-areeg',
+    f'{DATABASE_PATH}/iphone-hanaa',
+    f'{DATABASE_PATH}/iphone14-pro'
+]
+
 FILE_PATH = f'{RESULTS}gaussian.json'
 
 

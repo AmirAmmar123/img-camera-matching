@@ -2,6 +2,7 @@ import json
 import numpy as np
 import os
 from const import * 
+
 class JSONDataProcessor:
     def __init__(self, json_files, results_dir, database_path, pnuids, thresholds):
         self.json_files = json_files
@@ -45,6 +46,8 @@ class JSONDataProcessor:
 
 # Example usage
 if __name__ == "__main__":
+
     THRESHOLDS = [0.0019, 0.002, 0.00245, 0.003]  # Thresholds for analysis
+
     processor = JSONDataProcessor(JSON_FILES, ALL_RESULTS_DIR, DATABASE_PATH, PNUIDS, THRESHOLDS)
     processor.process_json_files()
