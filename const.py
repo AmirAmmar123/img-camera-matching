@@ -21,14 +21,14 @@ RESULTS  = f'{DATABASE_PATH}/{RESULT}'
 READ_RESULTS= f'{RESULTS}data.json'
 WRITE_SORTED= f'{RESULTS}preparing_to_thresholding.json'
 READ_SORTED = f'{RESULTS}preparing_to_thresholding.json'
-ALL_RESULTS_DIR = f'{FULL_PATH}all_results/'
+ALL_RESULTS_DIR = f'{FULL_PATH}/all_results/'
 NUM_OF_GUSSIANS = NUMS_OF_DATAT_SET
 OPTIONS = [TRAINING, TESTING]
 PATH_TO_GUSSIAN_JSON_FILE = f'{RESULTS}gussians.json'
 GAUSSIANPLOTS= './plots/gaussian/'
 GAUSSIANPLOTSTHEORY = f'{GAUSSIANPLOTS}theoretical/'
-PNU_DIR = ''
-PNUIDs = [
+PNU_DIR = 'pnu_id'
+PNUIDS = [
     f'{ALL_RESULTS_DIR}iphone-13-pro-amir/{PNU_DIR}',
     f'{ALL_RESULTS_DIR}iphone-14-plus-abeer/{PNU_DIR}',
     f'{ALL_RESULTS_DIR}iphone-8-plus-amir/{PNU_DIR}',
@@ -39,3 +39,11 @@ PNUIDs = [
 FILE_PATH = f'{RESULTS}gaussian.json'
 
 
+JSON_FILES = [
+    "iphone14-pro.json",
+    "iphone-8-plus-amir.json",
+    "iphone-13-pro-amir.json",
+    "iphone-14-plus-abeer.json",
+    "iphone-areeg.json",
+    "iphone-hanaa.json"
+]
