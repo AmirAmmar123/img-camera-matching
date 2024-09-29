@@ -17,6 +17,8 @@ if __name__ == '__main__':
     logging.info("CameraImageMatcher initialized successfully.")
     matcher.run()
     logging.info("Loading all gaussian's pairs")
+    
+    
     allgaussianPairs = LoadAllPairsOfGaussian()
     for x in range(NUMS_OF_DATAT_SET):
         logging.info("Loading gaussian's pair")
@@ -26,6 +28,7 @@ if __name__ == '__main__':
         g.visualize(path)
 
     alldata = AllData(matcher.db_bath)
+    
     logging.info("Joining all data...")
     alldata.join()
     alldata.map_to_imges()

@@ -7,13 +7,16 @@ logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 class LoadAllPairsOfGaussian:
-    
+    """Loads Gaussian data from a specified JSON file.
+
+    This class is responsible for loading Gaussian data from a JSON file and providing access to the data through an index-based method.
+    """
     def __init__(self, path_to_file: str = "./data-base/results/gaussian.json") -> None:
         self.path = path_to_file    
         with open(path_to_file, 'r') as f:
             self.gaussian_array = json.load(f)
         
-    def get_gaussian(self, x):
+    def get_gaussian(self, x:int) -> dict:
         return self.gaussian_array[x]
         
 class LoadGaussianPair:
@@ -24,6 +27,13 @@ class LoadGaussianPair:
     RESULT2_KEY = 'second_highest_correlation_results'
     
     def __init__(self, **kwargs) -> None:
+        """Initializes the class with specified parameters.
+
+        This constructor sets up the title, axes labels, and result data based on the provided keyword arguments. It also calculates the mean and variance for the results.
+
+        Args:
+            **kwargs: Keyword arguments for initializing the class attributes. Expected keys include TITLE, AXIS_X_1, AXIS_X_2, RESULT1_KEY, and RESULT2_KEY.
+        """
         self.title = kwargs.get(self.TITLE, 'Default Title')
         self.axis_1 = kwargs.get(self.AXIS_X_1, 'Axis X1')
         self.axis_2 = kwargs.get(self.AXIS_X_2, 'Axis X2')

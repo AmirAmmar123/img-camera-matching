@@ -11,9 +11,13 @@ if [ ! -e "plots/" ]; then
         echo "creating plots/gaussian..."
         mkdir plots/gaussian
         echo "done"
-        echo "creating plots/gaussian..."
+         echo "creating plots/gaussian/theoretical..."
+        mkdir plots/gaussian/theoretical
+        echo 'done'
+        echo "creating plots/pnu_hist..."
         mkdir "plots/pnu_hist"
         echo "done"
+        tree plots
 fi 
 
 for dir in "$@"; do

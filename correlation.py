@@ -22,14 +22,12 @@ def correlation(pnu_x: np.array,n: np.array):
     - pnu_x^ is the average of pnu_id values in the set x.
 
     Returns the correlation value between the two arrays.
-    """
-    """ 
-        np.dot(n-n^, pnu_x - pnu_x^) /( norm(n-n^) * norm(pnu_x - pnu_x^) ) 
-        n  = the F(n), F is wave-transform 
-        n^ = the average( image ),   image=F**-1( F(n) ) 
-        pnu_x = pnu_id of the set x 
-        pnu_x^ = average of (pnu_id)
-        
+
+    np.dot(n-n^, pnu_x - pnu_x^) /( norm(n-n^) * norm(pnu_x - pnu_x^) ) 
+    n  = the F(n), F is wave-transform 
+    n^ = the average( image ),   image=F**-1( F(n) ) 
+    pnu_x = pnu_id of the set x 
+    pnu_x^ = average of (pnu_id)
     """
     n_gag = np.average(n)
     pnu_x_gag = np.average(pnu_x)

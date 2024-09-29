@@ -25,7 +25,7 @@ class CameraImageMatcher:
 
     @staticmethod
     def parse_arguments():
-        parser = argparse.ArgumentParser(description="Camera Image Matcher")
+        parser = argparse.ArgumentParser(description="Image Camera Matcher")
         parser.add_argument("--db_bath", type=str, default='data-base', help="Path to the Data-Base")
         parser.add_argument("--data_dump", type=str, default="/data-base/results/", help="Path to Dump the output results")
         parser.add_argument("--home_directory_path", type=str, default="/home/ameer/img-camera-matching/", help="Home directory path")

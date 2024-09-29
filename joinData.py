@@ -29,9 +29,9 @@ class AllData:
         """
         logging.info('Joing training and testing images')
         self.all_data = [
-            HOME_DIR_PATH+self.dataBaseTraining.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)
+            FULL_PATH+self.dataBaseTraining.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)
         ] + [
-            HOME_DIR_PATH+self.dataBaseTesting.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)
+            FULL_PATH+self.dataBaseTesting.imgDirIndexPath(i) for i in range(NUMS_OF_DATAT_SET)
 
         ]
 

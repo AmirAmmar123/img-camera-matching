@@ -51,11 +51,7 @@ class PreProcessorToThreshold:
             comparisons_relevant_sorted = list(sorted(comparisons_relevant.items(), key=lambda item: item[1]))
             res[test_set.lower()] = comparisons_relevant_sorted
 
-        filtered = {}
-        for k, v in res.items():
-            filtered[k] = {s[0]: s[1] for s in v[-2:]}
-
-        return filtered
+        return {k: {s[0]: s[1] for s in v[-2:]} for k, v in res.items()}
 
     def save_data(self, data: dict) -> None:
         """
