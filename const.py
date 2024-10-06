@@ -57,3 +57,6 @@ JSON_FILES = [
     "iphone-areeg.json",
     "iphone-hanaa.json"
 ]
+
+
+THRESHOLDS = [0.0009 ,0.001, 0.0019, 0.002, 0.00245, 0.003]  \

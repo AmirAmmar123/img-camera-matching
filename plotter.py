@@ -266,6 +266,6 @@ if __name__ == '__main__':
     # device_cluster.plot_clusters()
     # # To save the plot to a file (e.g., 'cluster_plot.png')
     # device_cluster.plot_clusters(save_path='cluster_plot.png')
-    i = ImagePNUIDHistogram('/home/ameer/img-camera-matching/data-base/iphone-8-plus-amir/pnu_id/pnu_id.tiff')
+    i = ImagePNUIDHistogram('/home/ameer/img-camera-matching/data-base/iphone-14-plus-abeer/pnu_id/pnu_id.tiff')
     i._load_image()
     i.show_image()

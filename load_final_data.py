@@ -116,8 +116,8 @@ class JSONDataPlotter:
 
 if __name__ == "__main__":
 
-    # THRESHOLDS = [0.0009 ,0.001, 0.0019, 0.002, 0.00245, 0.003]  # Thresholds for analysis
+    THRESHOLDS = [0.0009 ,0.001, 0.0019, 0.002, 0.00245, 0.003]  # Thresholds for analysis
 
-    # processor = JSONDataProcessor(JSON_FILES, ALL_RESULTS_DIR, DATABASE_PATH, PNUIDS, THRESHOLDS)
-    # processor.process_json_files()
+    processor = JSONDataProcessor(JSON_FILES, ALL_RESULTS_DIR, DATABASE_PATH, PNUIDS, THRESHOLDS)
+    processor.process_json_files()
     JSONDataPlotter('/home/ameer/img-camera-matching/pnuid_results.xlsx').plot_all()

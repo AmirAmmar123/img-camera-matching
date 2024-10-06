@@ -6,7 +6,7 @@ import logging
 from joinData import AllData
 from correlation import CartesianCorrelation
 from const import * 
-
+from load_final_data import JSONDataPlotter, JSONDataProcessor
 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -28,10 +28,12 @@ if __name__ == '__main__':
         g.visualize(path)
 
     alldata = AllData(matcher.db_bath)
-    
     logging.info("Joining all data...")
     alldata.join()
     alldata.map_to_imges()
     data_set = alldata.join_training_and_testig_as_one_dir()
     logging.info("Data joined and prepared.")
     CartesianCorrelation(data_set).run()
+    processor = JSONDataProcessor(JSON_FILES, ALL_RESULTS_DIR, DATABASE_PATH, PNUIDS, THRESHOLDS)
+    processor.process_json_files()
+    JSONDataPlotter('/home/ameer/img-camera-matching/pnuid_results.xlsx').plot_all()
