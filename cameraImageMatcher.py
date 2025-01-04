@@ -1,7 +1,7 @@
 from joinData import AllData
 from gaussian import GaussianPairs
 import os 
-from const import PNU 
+from const import PNU_DIR 
 import argparse
 import json 
 from pnuidmapper import Mapper as mp 
@@ -93,7 +93,7 @@ class CameraImageMatcher:
         gussians = []
         for x, v in data.items():
             path1, path2 = v.keys()
-            path_to_pnu = os.path.dirname(x) + PNU
+            path_to_pnu = os.path.dirname(x) + PNU_DIR
             path_to_the_Highest = os.path.dirname(path2)
             path_to_second_eighest = os.path.dirname(path1)
             gussians.append(GaussianPairs(path_to_pnu, path_to_the_Highest, path_to_second_eighest))

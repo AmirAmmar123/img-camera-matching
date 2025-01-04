@@ -13,7 +13,7 @@ class PreProcessorToThreshold:
 
     def __init__(self, read_path: str, write_path: str):
         """
-        Initializes PreProcessorToThreshold with input and output file paths.
+        Initializes Pre-Processor-To-Threshold with input and output file paths.
         One stage before finding the threshold for each camera.
         
         Args:
