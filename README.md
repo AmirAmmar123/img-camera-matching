@@ -39,12 +39,12 @@ The `main.py` script accepts the following arguments:
 |----------------------------|--------|------------------------------------------------------------|-----------------------------------------------------------------------------|
 | `--db_path`                | `str`  | `'data-base'`                                              | Path to the database.                                                       |
 | `--data_dump`              | `str`  | `'/data-base/results/'`                                     | Path to dump the output results.                                            |
-| `--home_directory_path`    | `str`  | `'/home/amir/img-camera-matching/'`                         | Path to the home directory.                                                 |
+| `--home_directory_path`    | `str`  | `'/<HomeDir>/img-camera-matching/'`                         | Path to the home directory.                                                 |
 | `--base_directory`         | `str`  | `'img-camera-matching/Data-Base'`                           | Base directory from the project directory to the data-base directory.       |
 | `--read_correlation_result`| `str`  | `'data-base/results/data.json'`                             | Path to save the correlation results between the data-base and PNU ID.      |
 | `--save_to_gaussian_stage` | `str`  | `'data-base/results/prep_to_threshold.json'`                | Path to save the closest points between the data-base and PNU ID.           |
-| `--save_to_gaussian`       | `str`  | `'/home/amir/img-camera-matching/data-base/results/gaussian.json'` | Path to save the Gaussian results.                                          |
-| `--load_gaussian`          | `str`  | `'/home/amir/img-camera-matching/data-base/results/gaussian.json'` | Path to load the pairs of Gaussian that have been created.                  |
+| `--save_to_gaussian`       | `str`  | `'/<HomeDir>/img-camera-matching/data-base/results/gaussian.json'` | Path to save the Gaussian results.                                          |
+| `--load_gaussian`          | `str`  | `'/<HomeDir>/img-camera-matching/data-base/results/gaussian.json'` | Path to load the pairs of Gaussian that have been created.                  |
 | `--create_x_pnu_id`        | `int`  | `0`                                                        | Number of PNU IDs to create.                                                |
 | `--activate_creation`      | `bool` | `False`                                                    | Activate the generation of PNU ID for each image dataset.                   |
 | `--activate_matcher`       | `bool` | `False`                                                    | Activate the correlation generation between image-set and PNU ID.           |
