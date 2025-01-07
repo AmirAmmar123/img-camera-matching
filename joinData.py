@@ -2,7 +2,6 @@ from dataBase import DataBase as db
 from imgReader import ImgReader as ir 
 from const import *
 import logging 
-import os 
 logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
                     format='%(asctime)s - %(levelname)s - %(message)s')
 class AllData:

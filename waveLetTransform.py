@@ -1,10 +1,8 @@
 from ctypes import Array
-from typing import Any
+from typing import Union,  Any
 import numpy as np
 import pywt
 import matplotlib.pyplot as plt
-
-
 
 class WVT:
     APPROXIMATION = 'Approximation'
@@ -60,7 +58,7 @@ class WVT:
         fig.tight_layout()
         plt.show()
 
-    def get_HH(self)-> (Any | Array | None):
+    def get_HH(self)-> Union[Any, Array, None]:
         """
         Returns the HH component of the wavelet transformation.
 

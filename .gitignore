@@ -13,3 +13,4 @@ data-base/iphone14-pro/training
 .vscode/
 __pycache__/
 env/
+myenv/

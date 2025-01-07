@@ -2,70 +2,49 @@
 
 This repository contains a collection of Python scripts designed for image processing, signal transformation, and data analysis, with a specific focus on wavelet transforms and PNU identification (PNU ID) mapping.
 
-## Files and Scripts
-
-1. **avg_training_pny.py**
-   - **Description**: This script calculates the average correlation between images in the 'pnu_id' directories and 'testing' directories, and stores the results between each set of images in the testing directory and each PNU ID inside the results directory.
-
-2. **correlation.py**
-   - **Description**: Implements a function to calculate the correlation between two arrays: the first being the PNU ID and the second being the wavelet transformation of an image (the HH coefficient).
-
-3. **dataBase.py**
-   - **Description**: A utility class to manage and navigate the database of images. It provides functionality to list directories and retrieve paths for further processing.
-
-4. **imgReader.py**
-   - **Description**: Provides a class to read images from a directory, offering methods to load, process, and visualize images. It supports various formats including PNG, JPG, HEIC, and TIFF.
-
-5. **plotPnuId.py**
-   - **Description**: Loads an image and plots its grayscale histogram. It also allows visualization of the image itself, aiding in the analysis of PNU ID distributions.
-
-6. **pnuidmapper.py**
-   - **Description**: Maps pneumonia IDs (PNU IDs) to their corresponding wavelet-transformed images. It calculates key statistics like mean, standard deviation, and saves the transformed images along with the computed data.
-
-7. **waveLetTransform.py**
-   - **Description**: Implements the wavelet transform for images, extracting different detail components such as approximation, horizontal detail, vertical detail, and diagonal detail. These components are used in the analysis of image data.
-
-8. **main.py**
-   - **Description**: The main script to run the processing pipeline. It performs the following tasks:
-     1. **PNU ID Processing**: Creates a `Mapper` instance, processes images, and saves the PNU ID.
-     2. **Correlation Calculation**: Creates a `PNUMatcher` instance, calculates correlations, and saves the results.
-     3. **(Optional) Histogram Plotting**: Includes example code for using `ImagePNUIDHistogram` to plot and display histograms for PNU ID images. This section is commented out but can be used if needed.
-
 ## How to Use
+1. **Clone the repository**:
+  ```bash
+  git clone https://github.com/AmirAmmar123/img-camera-matching.git
+  ```
+2. **Ensure you have Python 3.9 installed**:
+  ```bash
+  python3.9 --version
+  ```
+3. **Create a Python virtual environment**:
+  ```bash
+  cd img-camera-matching
+  python3.9 -m venv myenv
+  source myenv/bin/activate
+  ```
+4. **Install the required packages**:
+  ```bash
+  pip install -r requirements.txt
+  ```
+5. **Run the initialization script**:
+  ```bash
+  ./init.sh
+  ```
+6. **Ensure the dataset is prepared**:
+  - Make sure there are approximately 300 images for training and 100 images for testing in the `training` and `testing` directories, respectively.
 
-1. **Setting up the Environment**:
-   - Ensure that your Python environment is properly set up with all necessary dependencies. You can install the required packages using:
-     ```bash
-     pip install -r requirements.txt
-     ```
 
-2. **Running the Scripts**:
-   - **avg_training_pny.py**: Calculates and saves the correlation results between training and test images.
-     ```bash
-     python avg_training_pny.py
-     ```
-   - **plotPnuId.py**: Loads an pnu id  image and plots its histogram.
-     ```bash
-     python plotPnuId.py
-     ```
-   - **pnuidmapper.py**: Transforms images to generate PNU IDs and calculates related statistics.
-     ```bash
-     python pnuidmapper.py
-     ```
-   - **main.py**: Runs the complete pipeline to process PNU IDs, calculate correlations, and optionally plot histograms.
-     ```bash
-     python main.py
-     ```
 
-3. **Testing and Visualization**:
-   - **imgReader.py** provides functions for reading and visualizing images. You can integrate it with other scripts to test image processing.
-   - **waveLetTransform.py** can be used to visualize the different components of the wavelet-transformed images.
 
-## Project Structure
+## Arguments for `main.py`
 
-- **Data-Base/**: Contains directories of images, organized for training and testing purposes.
-- **results/**: Stores the output results, including JSON files with correlation data and PNU ID images.
+The `main.py` script accepts the following arguments:
 
-## License
-
-This project is licensed under the MIT License.
+| Argument                   | Type   | Default Value                                              | Description                                                                 |
+|----------------------------|--------|------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `--db_path`                | `str`  | `'data-base'`                                              | Path to the database.                                                       |
+| `--data_dump`              | `str`  | `'/data-base/results/'`                                     | Path to dump the output results.                                            |
+| `--home_directory_path`    | `str`  | `'/home/amir/img-camera-matching/'`                         | Path to the home directory.                                                 |
+| `--base_directory`         | `str`  | `'img-camera-matching/Data-Base'`                           | Base directory from the project directory to the data-base directory.       |
+| `--read_correlation_result`| `str`  | `'data-base/results/data.json'`                             | Path to save the correlation results between the data-base and PNU ID.      |
+| `--save_to_gaussian_stage` | `str`  | `'data-base/results/prep_to_threshold.json'`                | Path to save the closest points between the data-base and PNU ID.           |
+| `--save_to_gaussian`       | `str`  | `'/home/amir/img-camera-matching/data-base/results/gaussian.json'` | Path to save the Gaussian results.                                          |
+| `--load_gaussian`          | `str`  | `'/home/amir/img-camera-matching/data-base/results/gaussian.json'` | Path to load the pairs of Gaussian that have been created.                  |
+| `--create_x_pnu_id`        | `int`  | `0`                                                        | Number of PNU IDs to create.                                                |
+| `--activate_creation`      | `bool` | `False`                                                    | Activate the generation of PNU ID for each image dataset.                   |
+| `--activate_matcher`       | `bool` | `False`                                                    | Activate the correlation generation between image-set and PNU ID.           |
