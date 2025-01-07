@@ -1,25 +1,3 @@
-# This script initializes the folder structure for the img-camera-matching project.
-# It creates necessary directories for plots, data-base, and all_results.
-#
-# Usage:
-#   ./init.sh <target-directory1> <target-directory2> ...
-#
-# Arguments:
-#   <target-directory1> <target-directory2> ... : List of target directories to be created under data-base and all_results.
-#
-# The script performs the following actions:
-# 1. Checks if the required number of arguments are provided. If not, it displays an error message and exits.
-# 2. Creates the "plots" directory and its subdirectories ("gaussian/theoretical" and "pnu_hist") if they do not exist.
-# 3. For each target directory provided as an argument:
-#    - Checks if the "data-base" directory exists. If not, it creates the directory.
-#    - Checks if the target directory exists under "data-base". If not, it creates the directory and its subdirectories ("pnu_id", "testing", "training").
-#    - Displays the created directory structure using the tree command.
-# 4. Creates the "all_results" directory if it does not exist.
-# 5. For each target directory provided as an argument:
-#    - Checks if the target directory exists under "all_results". If not, it creates the directory.
-#    - Displays the created directory structure using the tree command.
-#!/bin/bash
-
 HOME=~
 PROJECT_DIR="$HOME/img-camera-matching"
 DB_DIR="data-base"
@@ -77,6 +55,13 @@ for dir in "$@"; do
     echo "Folders created successfully at data-base/$dir"
     tree data-base/$dir
 done
+
+# create the data-base/results directory if it does not exist
+if [ ! -d "data-base/results" ]; then
+    echo "creating data-base/results/..."
+    mkdir -p data-base/results
+    echo "done"
+fi
 # create the all_results directory and sub directories if they do not exist
 if [ ! -d "all_results" ]; then
     echo "creating all_results/..."
@@ -95,3 +80,19 @@ for dir in "$@"; do
     echo "Folders created successfully at all_results/$dir"
     tree all_results/$dir
 done
+
+if [ -e "all_results/results" ]; then
+    echo "Path exists: all_results/results"
+else
+    echo "Path does not exist: all_results/results"
+    echo "Creating new path at all_results/results"
+    mkdir -p all_results/results
+fi
+
+
+# create the logging directory if it does not exist
+if [ ! -d "logging" ]; then
+    echo "creating logging/..."
+    mkdir -p logging
+    echo "done"
+fi

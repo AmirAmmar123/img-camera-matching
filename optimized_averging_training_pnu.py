@@ -3,18 +3,17 @@ import json
 from waveLetTransform import WVT
 from imgReader import ImgReader
 from correlation import correlation
-import logging 
-logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+from mylogger import Logger 
+
 class PNUMatcher:
-    def __init__(self, base_directory: str, data_dump: str):
-        logging.info("Initializing PNU Matcher...")
+    def __init__(self, base_directory: str, data_dump: str, logger:Logger):
+        
         self.base_directory = base_directory
         self.data_dump = data_dump
         self.pnu_img_reader_list = self._get_img_readers('pnu_id')
         self.test_img_reader_list = self._get_img_readers('testing')
         self.correlation_avergin_result = self._load_existing_results()
-        logging.info("PNU Matcher Successfully Loaded")
+        self.logger = logger
 
     def _find_directories(self, directory_name: str) -> list[str]:
         """
@@ -57,7 +56,7 @@ class PNUMatcher:
 
                     if pnu_path in self.correlation_avergin_result[test_path]:
                         # Skip calculation if result already exists
-                        logging.info(f"Skipping calculation for {test_path} and {pnu_path}")
+                        self.logger.info(f"Skipping calculation for {test_path} and {pnu_path}")
                         continue
 
                     self.correlation_avergin_result[test_path][pnu_path] = 0
@@ -68,19 +67,25 @@ class PNUMatcher:
                             result = correlation(pnu_id, WVT(test_img).get_HH())
                             self.correlation_avergin_result[test_path][pnu_path] += result
                         except Exception as e:
-                            logging.ERROR(f"Exception occurred while processing image {test_img_reader.read_image_path(i)} in {test_path}: {e}")
+                            self.logger.ERROR(f"Exception occurred while processing image {test_img_reader.read_image_path(i)} in {test_path}: {e}")
 
                     self.correlation_avergin_result[test_path][pnu_path] /= test_img_reader.get_collection_size()
         except Exception as e:
-            logging.ERROR(f"Exception occurred: {e}")
+            self.logger.ERROR(f"Exception occurred: {e}")
 
     def save_results(self):
         """
         This function saves the correlation results to a JSON file.
+        It creates the file and its directory if they do not exist.
         """
-        with open(f'{self.data_dump}data.json', 'w') as file:
+        
+        # File path
+        file_path = f'{self.data_dump}data.json'
+        
+        # Save the results to the file
+        with open(file_path, 'w') as file:
             json.dump(self.correlation_avergin_result, file, indent=4)
-            logging.info(f'Data successfully saved at {self.data_dump}data.json')
+            self.logger.debug(f'Data successfully saved at {file_path}')
 
 # Usage
 if __name__ == "__main__":

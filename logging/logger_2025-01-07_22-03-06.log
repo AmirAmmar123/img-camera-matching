@@ -1,0 +1,128 @@
+2025-01-07 22:03:06,939 - Message: - INFO - Entering main function...
+2025-01-07 22:03:06,939 - Message: - DEBUG - Args passed: {'db_path': '/home/amir/img-camera-matching/data-base', 'data_dump': '/home/amir/img-camera-matching/data-base/results/', 'home_directory_path': '/home/amir/', 'read_correlation_result': '/home/amir/img-camera-matching/data-base/results/data.json', 'save_to_gaussian_stage': '/home/amir/img-camera-matching/data-base/results/prep_to_threshold.json', 'save_to_gaussian': '/home/amir/img-camera-matching/data-base/results/gaussian.json', 'load_gaussian': '/home/amir/img-camera-matching/data-base/results/gaussian.json', 'create_x_pnu_id': 2, 'activate_creation': True, 'activate_matcher': True}
+2025-01-07 22:03:06,939 - Message: - INFO - CameraImageMatcher initialized successfully.
+2025-01-07 22:03:06,939 - Message: - INFO - Running Camera Image Matching Function...
+2025-01-07 22:03:06,939 - Message: - INFO - Creating pnu_id using the testing data-set 1...
+2025-01-07 22:03:06,940 - Message: - INFO - Initializing Database for path /home/amir/img-camera-matching/data-base/*/training
+2025-01-07 22:03:06,940 - Message: - INFO - Creating PNU ID...
+2025-01-07 22:03:06,940 - Message: - INFO - Casting WaveLetTransform for all images in /home/amir/img-camera-matching/data-base/amir/training/...
+2025-01-07 22:03:10,337 - Message: - INFO - PNU Id and Data successfully saved at /home/amir/img-camera-matching/data-base/amir/pnu_id/
+2025-01-07 22:03:10,337 - Message: - INFO - Creating pnu_id using the testing data-set 2...
+2025-01-07 22:03:10,337 - Message: - INFO - Initializing Database for path /home/amir/img-camera-matching/data-base/*/training
+2025-01-07 22:03:10,337 - Message: - INFO - Creating PNU ID...
+2025-01-07 22:03:10,337 - Message: - INFO - Casting WaveLetTransform for all images in /home/amir/img-camera-matching/data-base/abeer/training/...
+2025-01-07 22:03:13,136 - Message: - INFO - PNU Id and Data successfully saved at /home/amir/img-camera-matching/data-base/abeer/pnu_id/
+2025-01-07 22:03:13,143 - Message: - INFO - Skipping calculation for /home/amir/img-camera-matching/data-base/amir/testing and /home/amir/img-camera-matching/data-base/amir/pnu_id
+2025-01-07 22:03:13,144 - Message: - INFO - Skipping calculation for /home/amir/img-camera-matching/data-base/abeer/testing and /home/amir/img-camera-matching/data-base/amir/pnu_id
+2025-01-07 22:03:13,149 - Message: - INFO - Skipping calculation for /home/amir/img-camera-matching/data-base/amir/testing and /home/amir/img-camera-matching/data-base/abeer/pnu_id
+2025-01-07 22:03:13,150 - Message: - INFO - Skipping calculation for /home/amir/img-camera-matching/data-base/abeer/testing and /home/amir/img-camera-matching/data-base/abeer/pnu_id
+2025-01-07 22:03:13,150 - Message: - DEBUG - Data successfully saved at /home/amir/img-camera-matching/data-base/results/data.json
+2025-01-07 22:03:13,150 - Message: - INFO - loading the json data from /home/amir/img-camera-matching/data-base/results/data.json
+2025-01-07 22:03:13,150 - Message: - INFO - Creating a map between the image testing set and the closest two results from the PNU ID
+2025-01-07 22:03:13,150 - Message: - DEBUG - Saving the result to /home/amir/img-camera-matching/data-base/results/prep_to_threshold.json
+2025-01-07 22:03:13,150 - Message: - INFO - Initializing Database for path /home/amir/img-camera-matching/data-base/*/testing
+2025-01-07 22:03:13,151 - Message: - INFO - Initializing Database for path /home/amir/img-camera-matching/data-base/*/training
+2025-01-07 22:03:13,151 - Message: - INFO - Joing training and testing images
+2025-01-07 22:03:13,151 - Message: - INFO - Loading /home/amir/img-camera-matching/data-base/results/prep_to_threshold.json
+2025-01-07 22:03:13,151 - Message: - INFO - Ready to create 2 pairs of Gaussian...
+2025-01-07 22:03:13,151 - Message: - INFO - Initializing the image reader of both chosen gaussian's pairs
+2025-01-07 22:03:13,158 - Message: - INFO - Creating first Gaussian...
+2025-01-07 22:03:13,158 - Message: - INFO - 16 images ready to be processed...
+2025-01-07 22:03:20,525 - Message: - DEBUG - Total correlation results for the first Gaussian: 16
+2025-01-07 22:03:20,525 - Message: - INFO - Finished creating the first Gaussian.
+2025-01-07 22:03:20,525 - Message: - INFO - Creating second Gaussian...
+2025-01-07 22:03:20,525 - Message: - INFO - 12 images ready to be processed...
+2025-01-07 22:03:26,495 - Message: - DEBUG - Total correlation results for the second Gaussian: 12
+2025-01-07 22:03:26,495 - Message: - INFO - Finished processing.
+2025-01-07 22:03:26,495 - Message: - INFO - Total images : 28
+2025-01-07 22:03:26,495 - Message: - INFO - Total correlation results: 28
+2025-01-07 22:03:26,495 - Message: - INFO - Time elapsed: 13.34 seconds
+2025-01-07 22:03:26,495 - Message: - INFO - Pair #1 Created...
+2025-01-07 22:03:26,497 - Message: - INFO - 1: Data staged and saved to JSON
+2025-01-07 22:03:26,497 - Message: - INFO - Initializing the image reader of both chosen gaussian's pairs
+2025-01-07 22:03:26,504 - Message: - INFO - Creating first Gaussian...
+2025-01-07 22:03:26,504 - Message: - INFO - 12 images ready to be processed...
+2025-01-07 22:03:31,687 - Message: - DEBUG - Total correlation results for the first Gaussian: 12
+2025-01-07 22:03:31,687 - Message: - INFO - Finished creating the first Gaussian.
+2025-01-07 22:03:31,687 - Message: - INFO - Creating second Gaussian...
+2025-01-07 22:03:31,687 - Message: - INFO - 16 images ready to be processed...
+2025-01-07 22:03:38,448 - Message: - DEBUG - Total correlation results for the second Gaussian: 16
+2025-01-07 22:03:38,448 - Message: - INFO - Finished processing.
+2025-01-07 22:03:38,448 - Message: - INFO - Total images : 28
+2025-01-07 22:03:38,448 - Message: - INFO - Total correlation results: 28
+2025-01-07 22:03:38,448 - Message: - INFO - Time elapsed: 11.94 seconds
+2025-01-07 22:03:38,448 - Message: - INFO - Pair #2 Created...
+2025-01-07 22:03:38,450 - Message: - INFO - 2: Data staged and saved to JSON
+2025-01-07 22:03:38,450 - Message: - INFO - The processing of Data has been successfully finished
+2025-01-07 22:03:38,451 - Message: - INFO - Loading all gaussian's pairs
+2025-01-07 22:03:38,452 - Message: - INFO - Loading gaussian's pair
+2025-01-07 22:03:38,452 - Message: - INFO - Visualizing the two Gaussian distributions
+2025-01-07 22:03:38,565 - Message: - INFO - Plot saved to ./plots/gaussian/theoretical/amir$abeer
+2025-01-07 22:03:38,565 - Message: - INFO - Loading gaussian's pair
+2025-01-07 22:03:38,565 - Message: - INFO - Visualizing the two Gaussian distributions
+2025-01-07 22:03:38,683 - Message: - INFO - Plot saved to ./plots/gaussian/theoretical/abeer$amir
+2025-01-07 22:03:38,683 - Message: - INFO - Initializing Database for path /home/amir/img-camera-matching/data-base/*/testing
+2025-01-07 22:03:38,683 - Message: - INFO - Initializing Database for path /home/amir/img-camera-matching/data-base/*/training
+2025-01-07 22:03:38,684 - Message: - INFO - Joining all data...
+2025-01-07 22:03:38,684 - Message: - INFO - Joing training and testing images
+2025-01-07 22:03:38,684 - Message: - INFO - Data joined and prepared.
+2025-01-07 22:03:38,684 - Message: - INFO - Processing wavelet transform mapper...
+2025-01-07 22:03:38,953 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.01.heic
+2025-01-07 22:03:39,458 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.53.07.heic
+2025-01-07 22:03:39,891 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.04.heic
+2025-01-07 22:03:40,350 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.02.heic
+2025-01-07 22:03:40,788 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.01_1.heic
+2025-01-07 22:03:41,258 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.53.57.heic
+2025-01-07 22:03:41,699 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.05.heic
+2025-01-07 22:03:42,144 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.03.heic
+2025-01-07 22:03:42,731 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.01.heic
+2025-01-07 22:03:43,196 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.53.07.heic
+2025-01-07 22:03:43,615 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.04.heic
+2025-01-07 22:03:44,054 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.02.heic
+2025-01-07 22:03:44,495 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.01_1.heic
+2025-01-07 22:03:44,928 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.53.57.heic
+2025-01-07 22:03:45,381 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.05.heic
+2025-01-07 22:03:45,815 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.03.heic
+2025-01-07 22:03:46,255 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.01.heic
+2025-01-07 22:03:46,688 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.53.07.heic
+2025-01-07 22:03:47,123 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.04.heic
+2025-01-07 22:03:47,607 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.02.heic
+2025-01-07 22:03:48,064 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.01_1.heic
+2025-01-07 22:03:48,487 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.53.57.heic
+2025-01-07 22:03:48,918 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.05.heic
+2025-01-07 22:03:49,334 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/training//2024-08-30 16.54.03.heic
+2025-01-07 22:03:49,807 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.01.heic
+2025-01-07 22:03:50,238 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.53.07.heic
+2025-01-07 22:03:50,673 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.04.heic
+2025-01-07 22:03:51,093 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.02.heic
+2025-01-07 22:03:51,525 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.01_1.heic
+2025-01-07 22:03:51,989 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.53.57.heic
+2025-01-07 22:03:52,438 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.05.heic
+2025-01-07 22:03:52,854 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/amir/testing//2024-08-30 16.54.03.heic
+2025-01-07 22:03:53,113 - Message: - INFO - Processed and saved set /home/amir/img-camera-matching/data-base/amir.json
+2025-01-07 22:03:53,303 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25_2.heic
+2025-01-07 22:03:53,722 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25.heic
+2025-01-07 22:03:54,158 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.20_1.heic
+2025-01-07 22:03:54,582 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.20.heic
+2025-01-07 22:03:55,018 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25_1.heic
+2025-01-07 22:03:55,435 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25_3.heic
+2025-01-07 22:03:55,863 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25_2.heic
+2025-01-07 22:03:56,283 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25.heic
+2025-01-07 22:03:56,698 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.20_1.heic
+2025-01-07 22:03:57,121 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.20.heic
+2025-01-07 22:03:57,544 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25_1.heic
+2025-01-07 22:03:57,962 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25_3.heic
+2025-01-07 22:03:58,393 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25_2.heic
+2025-01-07 22:03:58,824 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25.heic
+2025-01-07 22:03:59,233 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.20_1.heic
+2025-01-07 22:03:59,650 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.20.heic
+2025-01-07 22:04:00,080 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25_1.heic
+2025-01-07 22:04:00,516 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/training//2024-08-31 20.08.25_3.heic
+2025-01-07 22:04:00,941 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25_2.heic
+2025-01-07 22:04:01,370 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25.heic
+2025-01-07 22:04:01,783 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.20_1.heic
+2025-01-07 22:04:02,202 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.20.heic
+2025-01-07 22:04:02,622 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25_1.heic
+2025-01-07 22:04:03,063 - Message: - INFO - Reading image /home/amir/img-camera-matching/data-base/abeer/testing//2024-08-31 20.08.25_3.heic
+2025-01-07 22:04:03,298 - Message: - INFO - Processed and saved set /home/amir/img-camera-matching/data-base/abeer.json
+2025-01-07 22:04:03,298 - Message: - INFO - Processing complete.

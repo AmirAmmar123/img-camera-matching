@@ -5,19 +5,16 @@ import imgReader as ir
 import numpy as np
 import cv2 
 import json
-import logging 
-import logging 
-logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+from mylogger import Logger
+import os 
 class Mapper:
     MAX = 'max'
     MIN = 'min'
     MEAN = 'mean'
     STD = 'std'
     
-    def __init__(self,dataBasePath: str, directoryIndex: int, readfrom : str = 'training' ):
-        print('Initializing PNU matcher...')
-        self.DataBase =  db.DataBase(dataBasePath, readfrom)
+    def __init__(self,dataBasePath: str, directoryIndex: int, logger:Logger , readfrom : str = 'training'):
+        self.DataBase =  db.DataBase(dataBasePath, logger, readfrom)
         self.imgReader = ir.ImgReader(self.DataBase.imgDirIndexPath(directoryIndex)) # The data-specific-data-set-path-inside image reader
         self.readfrom = readfrom
         self.all_transformation = []
@@ -27,10 +24,10 @@ class Mapper:
         self.mean = None 
         self.min = None 
         self.max = None
-        print('PNU matcher successfully initialized')
+        self.logger = logger
     
     def transform_all_imges(self) -> Generator[Any, Any, Any]:
-        logging.info(f'Casting WaveLetTransform for all images in {self.imgReader.path}...')
+        self.logger.info(f'Casting WaveLetTransform for all images in {self.imgReader.path}...')
         """
             Transform all images within the set of images
         """
@@ -50,7 +47,7 @@ class Mapper:
             The instance with the ID image and calculated statistics.
         """
        
-        logging.info('Creating PNU ID...')
+        self.logger.info('Creating PNU ID...')
         self.pnu_id = (
             sum(wvt.get_HH() for wvt in self.transform_all_imges())
             / self.imgReader.get_collection_size()
@@ -79,7 +76,7 @@ class Mapper:
         with open(f'{path}data.json', 'w') as file:
                 json.dump(data, file, indent=4)
   
-        logging.info(f'PNU Id and Data successfully saved at {path}')
+        self.logger.info(f'PNU Id and Data successfully saved at {path}')
 
 
 

@@ -1,18 +1,15 @@
 import json
 import matplotlib.pyplot as plt
 import numpy as np
-import logging
-
-logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
-                    format='%(asctime)s - %(levelname)s - %(message)s')
-
+from mylogger import Logger
+import os 
 class LoadAllPairsOfGaussian:
     """Loads Gaussian data from a specified JSON file.
 
     This class is responsible for loading Gaussian data from a JSON file and providing access to the data through an index-based method.
     """
     def __init__(self, path_to_file: str = "./data-base/results/gaussian.json") -> None:
-        self.path = path_to_file    
+        self.path = path_to_file 
         with open(path_to_file, 'r') as f:
             self.gaussian_array = json.load(f)
         
@@ -26,7 +23,7 @@ class LoadGaussianPair:
     RESULT1_KEY = 'highest_correlation_results'
     RESULT2_KEY = 'second_highest_correlation_results'
     
-    def __init__(self, **kwargs) -> None:
+    def __init__(self,  logger:Logger, **kwargs) -> None:
         """Initializes the class with specified parameters.
 
         This constructor sets up the title, axes labels, and result data based on the provided keyword arguments. It also calculates the mean and variance for the results.
@@ -39,10 +36,9 @@ class LoadGaussianPair:
         self.axis_2 = kwargs.get(self.AXIS_X_2, 'Axis X2')
         self.results1 = kwargs.get(self.RESULT1_KEY, [])
         self.results2 = kwargs.get(self.RESULT2_KEY, [])
-        
         self.mean1, self.mean2 = self.calculate_mean()
         self.var1, self.var2 = self.calculate_variance()
-
+        self.logger =  logger 
     def calculate_mean(self):
         return np.mean(self.results1), np.mean(self.results2)
 
@@ -51,7 +47,7 @@ class LoadGaussianPair:
 
     def save_plot(self, save_path: str):
         plt.savefig(save_path)
-        logging.info(f'Plot saved to {save_path}')
+        self.logger.info(f'Plot saved to {save_path}')
         
     def display_statistics(self):
         print(f'Mean of results1: {self.mean1:.7f}, Variance of results1: {self.var1:.7f}')
@@ -68,7 +64,7 @@ class LoadGaussianPair:
         
     
     def visualize(self, save_path: str = None):
-        logging.info("Visualizing the two Gaussian distributions")
+        self.logger.info("Visualizing the two Gaussian distributions")
         plt.figure(figsize=(10, 6))
 
         # Use science-friendly colors
@@ -113,7 +109,7 @@ class LoadGaussianPair:
         if save_path:
             self.save_plot(save_path)
         else:
-            logging.info("Plotting the two Gaussian distributions")
+            self.logger.info("Plotting the two Gaussian distributions")
             plt.show()
 
     def plot_gaussian(self, mean, variance, label, color):

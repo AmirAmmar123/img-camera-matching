@@ -1,7 +1,6 @@
 import json
-import logging 
-logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+from mylogger import Logger
+import os 
 class PreProcessorToThreshold:
     """
     A class to pre-process JSON data for threshold.
@@ -11,7 +10,7 @@ class PreProcessorToThreshold:
         write_path (str): Path to the output JSON file. (where to write the most two highest results for each set of correlation)
     """
 
-    def __init__(self, read_path: str, write_path: str):
+    def __init__(self, read_path: str, write_path: str,  logger:Logger):
         """
         Initializes Pre-Processor-To-Threshold with input and output file paths.
         One stage before finding the threshold for each camera.
@@ -22,6 +21,7 @@ class PreProcessorToThreshold:
         """
         self.read_path = read_path
         self.write_path = write_path
+        self.logger = logger
 
     def load_data(self) -> dict:
         """
@@ -30,7 +30,7 @@ class PreProcessorToThreshold:
         Returns:
             dict: The JSON data.
         """
-        logging.info(f'loading the json data from {self.read_path}')
+        self.logger.info(f'loading the json data from {self.read_path}')
         with open(self.read_path, 'r') as file:
             return json.load(file)
 
@@ -45,7 +45,7 @@ class PreProcessorToThreshold:
             dict: The filtered and sorted data.
         """
         res = {}
-        logging.info('Creating a map between the image testing set and the closest two results from the PNU ID')
+        self.logger.info('Creating a map between the image testing set and the closest two results from the PNU ID')
         for test_set, comparisons in data.items():
             comparisons_relevant = dict(comparisons.items())
             comparisons_relevant_sorted = list(sorted(comparisons_relevant.items(), key=lambda item: item[1]))
@@ -61,7 +61,7 @@ class PreProcessorToThreshold:
             data (dict): The data to write.
         """
         with open(self.write_path, 'w') as file:
-            logging.info(f'Saving the result to {self.write_path}')
+            self.logger.debug(f'Saving the result to {self.write_path}')
             json.dump(data, file, indent=4)  
 
     def run(self) -> None:

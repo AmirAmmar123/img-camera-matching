@@ -3,15 +3,13 @@ from imgReader import ImgReader as ir
 from correlation import correlation
 from waveLetTransform import WVT 
 from const import * 
-import logging
+from mylogger import  Logger
 import time 
 import sys 
-logging.basicConfig(level=logging.INFO,  # Set level to INFO to capture all INFO messages
-                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 class GaussianPairs:
     
-    def __init__(self, pnu_id_path_highest: str, basePathHighest:str, basePathsecondHighest:str):
+    def __init__(self, pnu_id_path_highest: str, basePathHighest:str, basePathsecondHighest:str,  logger:Logger):
         """
         A class to create two Gaussian distributions based on the closest correlation results between 
         a set of images and PNU IDs. The class processes two sets of images to compute correlations 
@@ -29,6 +27,7 @@ class GaussianPairs:
         self.pnu_id_path = pnu_id_path_highest
         self.basePathHighest = basePathHighest
         self.basePathsecondHighest = basePathsecondHighest
+        self.logger =  logger
     
     def init_data(self, allData: AllData):
         """
@@ -41,7 +40,7 @@ class GaussianPairs:
         self.pnu_img_reader = ir(self.pnu_id_path)
         self.img_reader_testing_training_Highest = []
         self.img_reader_testing_training_Second_Highest = []
-        logging.info("Initializing the image reader of both chosen gaussian's pairs")
+        self.logger.info("Initializing the image reader of both chosen gaussian's pairs")
         for x in range(2):
             self.img_reader_testing_training_Highest.append(
                 allData.get_img_reader_by_key(
@@ -61,10 +60,10 @@ class GaussianPairs:
 
         start_time = time.time()
 
-        logging.info('Creating first Gaussian...')
+        self.logger.info('Creating first Gaussian...')
         highest_total_images = sum(t.get_collection_size() for t in self.img_reader_testing_training_Highest)
         processed_images = 0
-        logging.info(f'{highest_total_images} images ready to be processed...')
+        self.logger.info(f'{highest_total_images} images ready to be processed...')
         for highest_testing_training in self.img_reader_testing_training_Highest:
             for image_index in range(highest_testing_training.get_collection_size()):
                 img = highest_testing_training.get_image_data(image_index)
@@ -74,14 +73,14 @@ class GaussianPairs:
                 sys.stdout.write(f'\rProcessed {int((processed_images/highest_total_images)*100)}% images.')
                 sys.stdout.flush()
         print()
-        logging.info(f'Total correlation results for the first Gaussian: {len(self.highest_correlation_results)}')
+        self.logger.debug(f'Total correlation results for the first Gaussian: {len(self.highest_correlation_results)}')
 
-        logging.info('Finished creating the first Gaussian.')
-        logging.info('Creating second Gaussian...')
+        self.logger.info('Finished creating the first Gaussian.')
+        self.logger.info('Creating second Gaussian...')
 
         second_total_images = sum(t.get_collection_size() for t in self.img_reader_testing_training_Second_Highest)
         processed_images = 0
-        logging.info(f'{second_total_images} images ready to be processed...')
+        self.logger.info(f'{second_total_images} images ready to be processed...')
         for second_highest_testing_training in self.img_reader_testing_training_Second_Highest:
             for image_index in range(second_highest_testing_training.get_collection_size()):
                 img = second_highest_testing_training.get_image_data(image_index)
@@ -93,15 +92,15 @@ class GaussianPairs:
                 sys.stdout.flush()
           
         print()
-        logging.info(f'Total correlation results for the second Gaussian: {len(self.second_highest_correlation_results)}')
+        self.logger.debug(f'Total correlation results for the second Gaussian: {len(self.second_highest_correlation_results)}')
 
         total_processed = len(self.highest_correlation_results) + len(self.second_highest_correlation_results)
         elapsed_time = time.time() - start_time
         total_images = highest_total_images + second_total_images
-        logging.info('Finished processing.')
-        logging.info(f'Total images : {total_images}')
-        logging.info(f'Total correlation results: {total_processed}')
-        logging.info(f'Time elapsed: {elapsed_time:.2f} seconds')
+        self.logger.info('Finished processing.')
+        self.logger.info(f'Total images : {total_images}')
+        self.logger.info(f'Total correlation results: {total_processed}')
+        self.logger.info(f'Time elapsed: {elapsed_time:.2f} seconds')
 
     
     def get_results(self):
